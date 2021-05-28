@@ -1,6 +1,6 @@
 package business.control;
-import business.model.User;
 
+import business.model.User;
 import java.util.HashMap;
 
 public class UserControl {
