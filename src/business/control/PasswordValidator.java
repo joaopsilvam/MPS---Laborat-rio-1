@@ -1,12 +1,14 @@
 package business.control;
 
-import exceptions;
+import exceptions.UserPasswordException;
 
 public class PasswordValidator implements Validator{
 	
 	public void validate(String value) throws UserPasswordException
 	{
-		if(true){//condição de senha inválida
+		boolean sizeInvalid = value.length() < 8 || value.length() > 20;
+
+		if(sizeInvalid){//condição de senha inválida
 			throw new UserPasswordException();
 		}
 	}
