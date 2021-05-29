@@ -2,10 +2,22 @@ package business.model;
 
 public class User {
 
-	String login;
-	String pass;
-	
-	public void get() {}
-	public void set() {}
-	
+	private String login;
+	private String pass;
+
+	public String getLogin(){
+		return login;
+	}
+
+	public String getPassword(){
+		return pass;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
+	public void setPassword(String password){
+		this.pass = password;
+	}
 }
