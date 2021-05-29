@@ -1,6 +1,6 @@
 package exceptions;
 
-public class UserLoginException extends Exception{
+public class UserLoginException extends UserException{
 
 	/**
 	 * 
