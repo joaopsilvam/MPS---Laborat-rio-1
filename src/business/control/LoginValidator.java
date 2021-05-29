@@ -1,11 +1,13 @@
 package business.control;
 
 import exceptions.UserLoginException;
+import business.model.User;
 
-public class LoginValidator implements Validator{
+public class LoginValidator implements IValidator{
 
-	public void validate(String value) throws UserLoginException
+	public void validate(User user) throws UserLoginException
 	{
+		String value = user.getLogin();
 		boolean containsNumber = value.matches(".*\\d.*");
 		boolean sizeInvalid = value.isEmpty() || value.length() > 12;
 
