@@ -1,9 +1,12 @@
 package view;
 
 import business.control.UserControl;
+import business.model.ListUserResponse;
 import business.model.User;
+import exceptions.UserException;
 
 import javax.swing.*;
+import java.util.List;
 
 public class UserForm {
 
@@ -15,27 +18,52 @@ public class UserForm {
 				"[d] Deletar usuário");
 
 		if(operation.equals("a")) {
-			String login = JOptionPane.showInputDialog("Informe o login do usuário:");
-			String password = JOptionPane.showInputDialog("Informe a senha do usuário:");
-			User user = new User(login, password);
-			controller.add(user);
-			JOptionPane.showMessageDialog(null, "Usuário cadastrado");
+			addOperation();
 		}
 		else if(operation.equals("b")) {
-			controller.listAll();
-			JOptionPane.showMessageDialog(null, "Verificar um usuário");
+			listOneOperation();
 		}
 		else if(operation.equals("c")) {
-			String login = JOptionPane.showInputDialog("Informe o login do usuário:");
-			controller.read(login);
-			JOptionPane.showMessageDialog(null, "Verificar todos os usuários");
+			listAllOperation();
 		}
 		else if(operation.equals("d")) {
-			String login = JOptionPane.showInputDialog("Informe o login do usuário:");
-			controller.delete(login);
-			JOptionPane.showMessageDialog(null, "Usuário deletado");
+			delOperation();
 		}else{
 			JOptionPane.showMessageDialog(null, "Informe uma operação válida");
 		}
+	}
+
+	public void addOperation(){
+		String login = JOptionPane.showInputDialog("Informe o login do usuário:");
+		String password = JOptionPane.showInputDialog("Informe a senha do usuário:");
+		User user = new User(login, password);
+
+		String exceptions = "";
+		for (UserException e: controller.add(user)) {
+			exceptions += e.getMessage()+"\n";
+		}
+		JOptionPane.showMessageDialog(null, exceptions);
+	}
+
+	public void listOneOperation(){
+		String login = JOptionPane.showInputDialog("Informe o login do usuário:");
+
+		String exceptions = "";
+		for (UserException e: controller.read(login).getExceptions()) {
+			exceptions += e.getMessage()+"\n";
+		}
+		JOptionPane.showMessageDialog(null, exceptions);
+	}
+
+	public void listAllOperation(){
+	}
+	public void delOperation(){
+		String login = JOptionPane.showInputDialog("Informe o login do usuário:");
+
+		String exceptions = "";
+		for (UserException e: controller.delete(login)) {
+			exceptions += e.getMessage()+"\n";
+		}
+		JOptionPane.showMessageDialog(null, exceptions);
 	}
 }
