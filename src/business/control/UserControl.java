@@ -4,6 +4,7 @@ import business.model.ListUserResponse;
 import business.model.User;
 import business.model.UserResponse;
 import exceptions.UserException;
+import infra.UserPersistence;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -17,9 +18,16 @@ public class UserControl {
 
 	public UserControl(){
 		ValidatorFactory validatorFactory = new ValidatorFactory();
-
-		this.users = new HashMap<String, User>();
+		carregarDados();
 		this.validators = validatorFactory.create();
+	}
+
+	public void carregarDados(){
+		this.users = UserPersistence.loadUsers("dados.dat");
+	}
+
+	public void gravarDados(){
+		UserPersistence.saveUsers(this.users, "dados.dat");
 	}
 	
 	public List<UserException> add(User user) {

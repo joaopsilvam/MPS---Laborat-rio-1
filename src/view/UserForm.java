@@ -12,10 +12,10 @@ public class UserForm {
 
 	UserControl controller = new UserControl();
 
-	public void menu() {
+	public Boolean menu() {
 		String operation = JOptionPane.showInputDialog("Que operação você deseja fazer no sistema?" +
 				"\n[a] Cadastrar usuário\n[b] Verificar um usuário\n[c] Verificar todos os usuários\n" +
-				"[d] Deletar usuário");
+				"[d] Deletar usuário\n[x] Sair");
 
 		if(operation.equals("a")) {
 			addOperation();
@@ -28,9 +28,13 @@ public class UserForm {
 		}
 		else if(operation.equals("d")) {
 			delOperation();
+		}
+		else if(operation.equals("x")) {
+			return false;
 		}else{
 			JOptionPane.showMessageDialog(null, "Informe uma operação válida");
 		}
+		return true;
 	}
 
 	public void addOperation(){
@@ -52,11 +56,14 @@ public class UserForm {
 		for (UserException e: controller.read(login).getExceptions()) {
 			exceptions += e.getMessage()+"\n";
 		}
-		JOptionPane.showMessageDialog(null, exceptions);
+		if(!exceptions.isEmpty()) JOptionPane.showMessageDialog(null, exceptions);
+		else JOptionPane.showMessageDialog(null, controller.read(login).getUser().getLogin()+
+				"\n"+controller.read(login).getUser().getPassword());
 	}
 
 	public void listAllOperation(){
 	}
+
 	public void delOperation(){
 		String login = JOptionPane.showInputDialog("Informe o login do usuário:");
 
@@ -65,5 +72,9 @@ public class UserForm {
 			exceptions += e.getMessage()+"\n";
 		}
 		JOptionPane.showMessageDialog(null, exceptions);
+	}
+
+	public void close(){
+		this.controller.gravarDados();
 	}
 }
