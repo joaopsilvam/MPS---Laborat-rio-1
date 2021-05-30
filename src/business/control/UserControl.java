@@ -13,15 +13,16 @@ import java.util.List;
 public class UserControl {
 
 	private HashMap<String, User> users;
-	private ValidatorFactory validatorFactory;
+	private List<IValidator> validators;
 
 	public UserControl(){
-		users = new HashMap<String, User>();
-		validatorFactory = new ValidatorFactory();
+		ValidatorFactory validatorFactory = new ValidatorFactory();
+
+		this.users = new HashMap<String, User>();
+		this.validators = validatorFactory.create();
 	}
 	
 	public List<UserException> add(User user) {
-		List<IValidator> validators = validatorFactory.create();
 		List<UserException> exceptions = new ArrayList<>();
 
 		for(IValidator validator : validators){
