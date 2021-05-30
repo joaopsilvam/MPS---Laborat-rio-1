@@ -33,7 +33,7 @@ public class UserControl {
 			}
 		}
 
-		if(!exceptions.isEmpty())
+		if(exceptions.isEmpty())
 			users.put(user.getLogin(), user);
 
 		return exceptions;
