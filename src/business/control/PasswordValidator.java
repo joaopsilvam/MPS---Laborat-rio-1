@@ -24,7 +24,21 @@ public class PasswordValidator implements IValidator{
 		boolean sizeInvalid = value.length() < 8 || value.length() > 20;
 
 		if(sizeInvalid || !formatValid){//condição de senha inválida
-			throw new UserPasswordException();
+			throw new UserPasswordException(createErrorMessage(sizeInvalid, !formatValid));
 		}
+	}
+
+	private String createErrorMessage(boolean sizeInvalid, boolean formatInvalid){
+		String message = "";
+
+		if(sizeInvalid){
+			message += "*Tamanho da senha inválido, deve conter de 8 a 20 caracteres";
+		}
+
+		if(formatInvalid){
+			message += "\n*Formato da senha inválido, deve conter letras e números, e ao menos 2 números";
+		}
+
+		return message;
 	}
 }

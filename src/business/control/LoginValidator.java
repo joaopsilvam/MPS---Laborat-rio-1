@@ -20,7 +20,21 @@ public class LoginValidator implements IValidator{
 		boolean sizeInvalid = value.isEmpty() || value.length() > 12;
 
 		if(containsNumber || sizeInvalid){//condição de senha inválida
-			throw new UserLoginException();
+			throw new UserLoginException(createErrorMessage(sizeInvalid, containsNumber));
 		}
+	}
+
+	private String createErrorMessage(boolean sizeInvalid, boolean formatInvalid){
+		String message = "";
+
+		if(sizeInvalid){
+			message += "*Tamanho do usuário inválido, deve conter de 1 a 12 caracteres";
+		}
+
+		if(formatInvalid){
+			message += "\n*Usuário não deve conter números";
+		}
+
+		return message;
 	}
 }

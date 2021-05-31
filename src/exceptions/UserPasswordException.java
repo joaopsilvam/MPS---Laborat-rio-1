@@ -10,4 +10,6 @@ public class UserPasswordException extends UserException{
 		super("Senha inválido");
 	}
 
+	public UserPasswordException(String message){ super(message); }
+
 }

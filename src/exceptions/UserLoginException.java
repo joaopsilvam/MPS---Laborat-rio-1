@@ -10,4 +10,8 @@ public class UserLoginException extends UserException{
 	public UserLoginException(){
 		super("Login inválido");
 	}
+
+	public UserLoginException(String message){
+		super(message);
+	}
 }
