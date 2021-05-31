@@ -3,7 +3,6 @@ package view;
 import business.control.UserControl;
 import business.model.ListUserResponse;
 import business.model.User;
-import exceptions.InfraException;
 import exceptions.UserException;
 
 import javax.swing.*;
@@ -102,6 +101,6 @@ public class UserForm {
 	}
 
 	public void close(){
-		this.controller.gravarDados();
+		this.controller.saveData();
 	}
 }

@@ -8,7 +8,6 @@ import exceptions.UserException;
 import infra.UserPersistence;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
@@ -19,15 +18,15 @@ public class UserControl {
 
 	public UserControl() throws InfraException{
 		ValidatorFactory validatorFactory = new ValidatorFactory();
-		carregarDados();
+		loadData();
 		this.validators = validatorFactory.create();
 	}
 
-	public void carregarDados() throws InfraException{
+	private void loadData() throws InfraException{
 		this.users = UserPersistence.loadUsers("dados.dat");
 	}
 
-	public void gravarDados(){
+	public void saveData(){
 		UserPersistence.saveUsers(this.users, "dados.dat");
 	}
 	
