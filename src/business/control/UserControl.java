@@ -3,6 +3,7 @@ package business.control;
 import business.model.ListUserResponse;
 import business.model.User;
 import business.model.UserResponse;
+import exceptions.InfraException;
 import exceptions.UserException;
 import infra.UserPersistence;
 
@@ -16,13 +17,13 @@ public class UserControl {
 	private HashMap<String, User> users;
 	private List<IValidator> validators;
 
-	public UserControl(){
+	public UserControl() throws InfraException{
 		ValidatorFactory validatorFactory = new ValidatorFactory();
 		carregarDados();
 		this.validators = validatorFactory.create();
 	}
 
-	public void carregarDados(){
+	public void carregarDados() throws InfraException{
 		this.users = UserPersistence.loadUsers("dados.dat");
 	}
 
@@ -32,6 +33,13 @@ public class UserControl {
 	
 	public List<UserException> add(User user) {
 		List<UserException> exceptions = new ArrayList<>();
+
+		try{
+			avaliableUser(user.getLogin());
+		}
+		catch (UserException e){
+			exceptions.add(e);
+		}
 
 		for(IValidator validator : validators){
 			try{
@@ -55,7 +63,7 @@ public class UserControl {
 			response.add(user);
 		}
 
-		return new ListUserResponse(response);
+		return new ListUserResponse(response, new ArrayList<>());
 	}
 
 	public UserResponse read(String login) {
@@ -86,9 +94,15 @@ public class UserControl {
 		return exceptions;
 	}
 
+	private void avaliableUser(String login) throws UserException{
+		if(users.containsKey(login)){
+			throw new UserException("Login não disponível");
+		}
+	}
+
 	private void hasUser(String login) throws UserException{
 		if(!users.containsKey(login)){
-			throw new UserException();
+			throw new UserException("Usuário não existe");
 		}
 	}
 }

@@ -4,10 +4,11 @@ import java.io.*;
 import java.util.HashMap;
 
 import business.model.User;
+import exceptions.InfraException;
 
 public class UserPersistence{
 
-	public static HashMap<String, User> loadUsers(String nomeArquivo){
+	public static HashMap<String, User> loadUsers(String nomeArquivo) throws InfraException {
 
 		HashMap<String, User> users = new HashMap<String, User>();
 		try {
@@ -18,10 +19,11 @@ public class UserPersistence{
 				objInput.close();
 			}
 		} catch(IOException erro1) {
-			System.out.printf("Erro: %s", erro1.getMessage());
+			throw new InfraException();
 		} catch(ClassNotFoundException erro2) {
-			System.out.printf("Erro: %s", erro2.getMessage());
+			throw new InfraException();
 		}
+
 		return(users);
 	}
 

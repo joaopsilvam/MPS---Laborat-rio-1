@@ -3,6 +3,7 @@ package view;
 import business.control.UserControl;
 import business.model.ListUserResponse;
 import business.model.User;
+import exceptions.InfraException;
 import exceptions.UserException;
 
 import javax.swing.*;
@@ -10,7 +11,12 @@ import java.util.List;
 
 public class UserForm {
 
-	UserControl controller = new UserControl();
+	UserControl controller;
+
+	public UserForm(UserControl controller)
+	{
+		this.controller = controller;
+	}
 
 	public Boolean menu() {
 		String operation = JOptionPane.showInputDialog("Que operação você deseja fazer no sistema?" +
@@ -42,11 +48,15 @@ public class UserForm {
 		String password = JOptionPane.showInputDialog("Informe a senha do usuário:");
 		User user = new User(login, password);
 
-		String exceptions = "";
-		for (UserException e: controller.add(user)) {
-			exceptions += e.getMessage()+"\n";
+		List<UserException> exceptions = controller.add(user);
+		String exceptionsText = "";
+
+		for (UserException e : exceptions) {
+			exceptionsText += e.getMessage()+"\n";
 		}
-		JOptionPane.showMessageDialog(null, exceptions);
+
+		if(!exceptions.isEmpty())
+			JOptionPane.showMessageDialog(null, exceptionsText);
 	}
 
 	public void listOneOperation(){
@@ -62,6 +72,23 @@ public class UserForm {
 	}
 
 	public void listAllOperation(){
+		ListUserResponse response = controller.listAll();
+		String logins = "";
+		String exceptionsText = "";
+
+		for(User user : response.getUsers()){
+			logins += user.getLogin() + '\n';
+		}
+
+		for(UserException exception : response.getExceptions()){
+			exceptionsText += exception.getMessage() + '\n';
+		}
+
+		JOptionPane.showMessageDialog(null, logins);
+
+		if(!response.getExceptions().isEmpty()){
+			JOptionPane.showMessageDialog(null, exceptionsText);
+		}
 	}
 
 	public void delOperation(){
