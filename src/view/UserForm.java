@@ -1,7 +1,7 @@
 package view;
 
 import business.control.UserControl;
-import business.model.ListUserResponse;
+import business.model.UserListResponse;
 import business.model.User;
 import exceptions.UserException;
 
@@ -71,7 +71,7 @@ public class UserForm {
 	}
 
 	public void listAllOperation(){
-		ListUserResponse response = controller.readAll();
+		UserListResponse response = controller.readAll();
 		String logins = "";
 		String exceptionsText = "";
 

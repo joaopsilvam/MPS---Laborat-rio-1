@@ -4,12 +4,12 @@ import exceptions.UserException;
 
 import java.util.List;
 
-public class ListUserResponse {
+public class UserListResponse {
 
     private List<User> users;
     private List<UserException> exceptions;
 
-    public ListUserResponse(List<User> users, List<UserException> exceptions){
+    public UserListResponse(List<User> users, List<UserException> exceptions){
         this.users = users;
         this.exceptions = exceptions;
     }

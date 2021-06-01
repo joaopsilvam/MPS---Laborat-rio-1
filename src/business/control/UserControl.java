@@ -1,6 +1,6 @@
 package business.control;
 
-import business.model.ListUserResponse;
+import business.model.UserListResponse;
 import business.model.User;
 import business.model.UserResponse;
 import exceptions.InfraException;
@@ -55,14 +55,14 @@ public class UserControl {
 		return exceptions;
 	}
 
-	public ListUserResponse readAll() {
+	public UserListResponse readAll() {
 		List<User> response = new ArrayList<>();
 
 		for(User user : users.values()){
 			response.add(user);
 		}
 
-		return new ListUserResponse(response, new ArrayList<>());
+		return new UserListResponse(response, new ArrayList<>());
 	}
 
 	public UserResponse read(String login) {
