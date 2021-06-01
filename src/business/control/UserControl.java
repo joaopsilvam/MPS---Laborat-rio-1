@@ -17,9 +17,9 @@ public class UserControl {
 	private List<IUserValidator> validators;
 
 	public UserControl() throws InfraException{
-		ValidatorFactory validatorFactory = new ValidatorFactory();
+		UserValidatorFactory userValidatorFactory = new UserValidatorFactory();
 		loadData();
-		this.validators = validatorFactory.create();
+		this.validators = userValidatorFactory.create();
 	}
 
 	private void loadData() throws InfraException{
