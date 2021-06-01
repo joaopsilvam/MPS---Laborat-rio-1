@@ -71,7 +71,7 @@ public class UserForm {
 	}
 
 	public void listAllOperation(){
-		ListUserResponse response = controller.listAll();
+		ListUserResponse response = controller.readAll();
 		String logins = "";
 		String exceptionsText = "";
 

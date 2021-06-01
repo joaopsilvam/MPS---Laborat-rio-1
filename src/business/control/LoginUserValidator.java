@@ -5,11 +5,11 @@ import business.model.User;
 
 import java.util.regex.Pattern;
 
-public class LoginValidator implements IValidator{
+public class LoginUserValidator implements IUserValidator {
 
 	private Pattern containsNumberRegex;
 
-	public LoginValidator(){
+	public LoginUserValidator(){
 		containsNumberRegex = Pattern.compile(".*\\d.*");
 	}
 

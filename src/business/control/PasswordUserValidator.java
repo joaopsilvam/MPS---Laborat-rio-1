@@ -5,12 +5,12 @@ import business.model.User;
 
 import java.util.regex.Pattern;
 
-public class PasswordValidator implements IValidator{
+public class PasswordUserValidator implements IUserValidator {
 
 	private Pattern containsTwoNumbersPattern;//padrão para ao menos 2 números
 	private Pattern containsWordCharPattern;//padrão para letras
 
-	public PasswordValidator(){
+	public PasswordUserValidator(){
 		containsTwoNumbersPattern = Pattern.compile(".*\\d{2,}.*");
 		containsWordCharPattern = Pattern.compile(".*[a-zA-Z].*");
 	}

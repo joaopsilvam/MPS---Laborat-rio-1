@@ -14,7 +14,7 @@ import java.util.List;
 public class UserControl {
 
 	private HashMap<String, User> users;
-	private List<IValidator> validators;
+	private List<IUserValidator> validators;
 
 	public UserControl() throws InfraException{
 		ValidatorFactory validatorFactory = new ValidatorFactory();
@@ -40,7 +40,7 @@ public class UserControl {
 			exceptions.add(e);
 		}
 
-		for(IValidator validator : validators){
+		for(IUserValidator validator : validators){
 			try{
 				validator.validate(user);
 			}
@@ -55,7 +55,7 @@ public class UserControl {
 		return exceptions;
 	}
 
-	public ListUserResponse listAll() {
+	public ListUserResponse readAll() {
 		List<User> response = new ArrayList<>();
 
 		for(User user : users.values()){

@@ -5,11 +5,11 @@ import java.util.ArrayList;
 
 public class ValidatorFactory {
 
-    public List<IValidator> create(){
-        List<IValidator> validators = new ArrayList<>();
+    public List<IUserValidator> create(){
+        List<IUserValidator> validators = new ArrayList<>();
 
-        validators.add(new LoginValidator());
-        validators.add(new PasswordValidator());
+        validators.add(new LoginUserValidator());
+        validators.add(new PasswordUserValidator());
 
         return validators;
     }
