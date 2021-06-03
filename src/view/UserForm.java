@@ -1,7 +1,7 @@
 package view;
 
 import business.control.UserControl;
-import business.model.UserListResponse;
+import business.model.responses.UserListResponse;
 import business.model.User;
 
 import javax.swing.*;

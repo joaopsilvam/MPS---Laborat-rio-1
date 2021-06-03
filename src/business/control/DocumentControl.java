@@ -1,7 +1,7 @@
 package business.control;
 
 import business.model.Document;
-import business.model.DocumentResponse;
+import business.model.responses.DocumentResponse;
 import exceptions.DocumentException;
 
 import java.util.ArrayList;

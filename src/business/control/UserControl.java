@@ -1,8 +1,10 @@
 package business.control;
 
-import business.model.UserListResponse;
+import business.control.factories.UserValidatorFactory;
+import business.control.validators.IUserValidator;
+import business.model.responses.UserListResponse;
 import business.model.User;
-import business.model.UserResponse;
+import business.model.responses.UserResponse;
 import exceptions.InfraException;
 import exceptions.UserException;
 import infra.UserPersistence;
@@ -23,11 +25,11 @@ public class UserControl {
 	}
 
 	private void loadData() throws InfraException{
-		this.users = UserPersistence.loadUsers("dados.dat");
+		this.users = UserPersistence.loadUsers("usuarios.dat");
 	}
 
 	public void saveData(){
-		UserPersistence.saveUsers(this.users, "dados.dat");
+		UserPersistence.saveUsers(this.users, "usuarios.dat");
 	}
 	
 	public List<String> add(User user) {
