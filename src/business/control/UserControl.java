@@ -30,14 +30,14 @@ public class UserControl {
 		UserPersistence.saveUsers(this.users, "dados.dat");
 	}
 	
-	public List<UserException> add(User user) {
-		List<UserException> exceptions = new ArrayList<>();
+	public List<String> add(User user) {
+		List<String> exceptions = new ArrayList<>();
 
 		try{
 			avaliableUser(user.getLogin());
 		}
 		catch (UserException e){
-			exceptions.add(e);
+			exceptions.add(e.getMessage());
 		}
 
 		for(IUserValidator validator : validators){
@@ -45,7 +45,7 @@ public class UserControl {
 				validator.validate(user);
 			}
 			catch(UserException e){
-				exceptions.add(e);
+				exceptions.add(e.getMessage());
 			}
 		}
 
@@ -66,28 +66,28 @@ public class UserControl {
 	}
 
 	public UserResponse read(String login) {
-		List<UserException> exceptions = new ArrayList<>();
+		List<String> exceptions = new ArrayList<>();
 		User user = null;
 
 		try{
 			hasUser(login);
 			user = users.get(login);
 		}catch (UserException e){
-			exceptions.add(e);
+			exceptions.add(e.getMessage());
 		}
 
 		return new UserResponse(user, exceptions);
 	}
 
-	public List<UserException> delete(String login) {
+	public List<String> delete(String login) {
 
-		List<UserException> exceptions = new ArrayList<>();
+		List<String> exceptions = new ArrayList<>();
 
 		try{
 			hasUser(login);
 			users.remove(login);
 		}catch (UserException e){
-			exceptions.add(e);
+			exceptions.add(e.getMessage());
 		}
 
 		return exceptions;

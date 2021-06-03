@@ -3,7 +3,6 @@ package view;
 import business.control.UserControl;
 import business.model.UserListResponse;
 import business.model.User;
-import exceptions.UserException;
 
 import javax.swing.*;
 import java.util.List;
@@ -47,11 +46,11 @@ public class UserForm {
 		String password = JOptionPane.showInputDialog("Informe a senha do usuário:");
 		User user = new User(login, password);
 
-		List<UserException> exceptions = controller.add(user);
+		List<String> exceptions = controller.add(user);
 		String exceptionsText = "";
 
-		for (UserException e : exceptions) {
-			exceptionsText += e.getMessage()+"\n";
+		for (String e : exceptions) {
+			exceptionsText += e+'\n';
 		}
 
 		if(!exceptions.isEmpty())
@@ -62,8 +61,8 @@ public class UserForm {
 		String login = JOptionPane.showInputDialog("Informe o login do usuário:");
 
 		String exceptions = "";
-		for (UserException e: controller.read(login).getExceptions()) {
-			exceptions += e.getMessage()+"\n";
+		for (String e: controller.read(login).getErrors()) {
+			exceptions += e+'\n';
 		}
 		if(!exceptions.isEmpty()) JOptionPane.showMessageDialog(null, exceptions);
 		else JOptionPane.showMessageDialog(null, controller.read(login).getUser().getLogin()+
@@ -79,13 +78,13 @@ public class UserForm {
 			logins += user.getLogin() + '\n';
 		}
 
-		for(UserException exception : response.getExceptions()){
-			exceptionsText += exception.getMessage() + '\n';
+		for(String exception : response.getErrors()){
+			exceptionsText += exception + '\n';
 		}
 
 		JOptionPane.showMessageDialog(null, logins);
 
-		if(!response.getExceptions().isEmpty()){
+		if(!response.getErrors().isEmpty()){
 			JOptionPane.showMessageDialog(null, exceptionsText);
 		}
 	}
@@ -94,8 +93,8 @@ public class UserForm {
 		String login = JOptionPane.showInputDialog("Informe o login do usuário:");
 
 		String exceptions = "";
-		for (UserException e: controller.delete(login)) {
-			exceptions += e.getMessage()+"\n";
+		for (String e: controller.delete(login)) {
+			exceptions += e+'\n';
 		}
 		JOptionPane.showMessageDialog(null, exceptions);
 	}

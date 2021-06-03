@@ -1,23 +1,22 @@
 package business.model;
 
-import exceptions.UserException;
 import java.util.List;
 
 public class UserResponse {
 
     private User user;
-    private List<UserException> exceptions;
+    private List<String> errors;
 
-    public UserResponse(User user, List<UserException> exceptions){
+    public UserResponse(User user, List<String> errors){
         this.user = user;
-        this.exceptions = exceptions;
+        this.errors = errors;
     }
 
     public User getUser(){
         return user;
     }
 
-    public List<UserException> getExceptions(){
-        return exceptions;
+    public List<String> getErrors(){
+        return errors;
     }
 }
