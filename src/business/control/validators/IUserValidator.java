@@ -1,4 +1,4 @@
-package business.control;
+package business.control.validators;
 
 import exceptions.UserException;
 import business.model.User;

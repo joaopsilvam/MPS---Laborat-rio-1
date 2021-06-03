@@ -1,4 +1,6 @@
-package business.model;
+package business.model.responses;
+
+import business.model.User;
 
 import java.util.List;
 

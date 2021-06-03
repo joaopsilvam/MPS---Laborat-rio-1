@@ -1,4 +1,6 @@
-package business.model;
+package business.model.responses;
+
+import business.model.Document;
 
 import java.util.ArrayList;
 import java.util.List;
