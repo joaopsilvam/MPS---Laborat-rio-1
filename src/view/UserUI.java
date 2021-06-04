@@ -104,7 +104,9 @@ public class UserUI implements IForms{
 		for (String e: facade.deleteUser(login)) {
 			exceptions += e+'\n';
 		}
-		JOptionPane.showMessageDialog(null, exceptions);
+
+		if(!exceptions.isEmpty())
+			JOptionPane.showMessageDialog(null, exceptions);
 	}
 
 	public void addUserIntoEvento() {

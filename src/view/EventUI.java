@@ -4,6 +4,7 @@ import business.control.Facade;
 import business.model.Event;
 import business.model.User;
 import business.model.responses.EventListResponse;
+import business.model.responses.UserListResponse;
 
 import javax.swing.*;
 import java.util.Date;
@@ -106,14 +107,28 @@ public class EventUI implements IForms{
 		for (String e: facade.deleteEvent(nome)) {
 			exceptions += e+'\n';
 		}
-		JOptionPane.showMessageDialog(null, exceptions);
+
+		if(!exceptions.isEmpty())
+			JOptionPane.showMessageDialog(null, exceptions);
 	}
 
 	private void listAllUsersOnEvent() {
 		String nome = JOptionPane.showInputDialog("Informe o nome do evento");
 
 		String users = "";
-		for (User u: facade.listAllUsersOnEvent(nome).values()) {
+		UserListResponse response = facade.listAllUsersOnEvent(nome);
+		String errors = "";
+
+		for(String error : response.getErrors()){
+			errors += error + '\n';
+		}
+
+		if(!errors.isEmpty()){
+			JOptionPane.showMessageDialog(null, errors);
+			return;
+		}
+
+		for (User u : response.getUsers()) {
 			users += u.getLogin()+'\n';
 		}
 		JOptionPane.showMessageDialog(null, users);
