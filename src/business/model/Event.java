@@ -1,13 +1,11 @@
 package business.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 
 public class Event implements Serializable {
-    private String nome;
+    private String name;
     private String descricao;
     private Date data;
     private HashMap<String, User> users;
@@ -16,15 +14,15 @@ public class Event implements Serializable {
         this("", "", new Date());
     }
     
-    public Event(String nome, String descricao, Date data){
-        this.nome = nome;
+    public Event(String name, String descricao, Date data){
+        this.name = name;
         this.descricao = descricao;
         this.data = data;
         this.users = new HashMap<>();
     }
 
-    public Event(String nome, String descricao, Date data, HashMap<String, User> users){
-        this.nome = nome;
+    public Event(String name, String descricao, Date data, HashMap<String, User> users){
+        this.name = name;
         this.descricao = descricao;
         this.data = data;
         this.users = users;
@@ -38,12 +36,12 @@ public class Event implements Serializable {
         this.users = users;
     }
 
-    public String getNome() {
-        return nome;
+    public String getName() {
+        return name;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDescricao() {

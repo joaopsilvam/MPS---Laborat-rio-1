@@ -31,8 +31,8 @@ public class EventControl {
     public List<String> add(Event event){
         List<String> errors = new ArrayList<>();
         try{
-            avaliableEvent(event.getNome());
-            events.put(event.getNome(), event);
+            avaliableEvent(event.getName());
+            events.put(event.getName(), event);
         }catch(EventException e){
             errors.add(e.getMessage());
         }

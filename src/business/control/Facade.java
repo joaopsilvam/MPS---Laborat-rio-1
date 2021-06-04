@@ -111,7 +111,7 @@ public class Facade {
         return this.eventControl.read(name);
     }
 
-    public EventListResponse readAllEvents(String name) {
+    public EventListResponse readAllEvents() {
         return this.eventControl.readAll();
     }
 
