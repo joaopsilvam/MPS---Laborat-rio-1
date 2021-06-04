@@ -1,8 +1,12 @@
 package view;
 
 import business.control.Facade;
+import business.model.Event;
+import business.model.responses.EventListResponse;
 
 import javax.swing.*;
+import java.util.Date;
+import java.util.List;
 
 public class EventUI implements IForms{
 
@@ -42,8 +46,7 @@ public class EventUI implements IForms{
 	public void addOperation(){
 		String nome = JOptionPane.showInputDialog("Informe o nome do evento");
 		String descricao = JOptionPane.showInputDialog("Informe a descricao do evento");
-		String data = new SimpleDateFormat(JOptionPane.showInputDialog("Informe uma data para o evento"));
-		Event event = new Event(nome, descricao, data);
+		Event event = new Event(nome, descricao, new Date());
 
 		List<String> exceptions = facade.addEvent(event);
 		String exceptionsText = "";
@@ -67,8 +70,8 @@ public class EventUI implements IForms{
 			JOptionPane.showMessageDialog(null, exceptions);
 		}
 		else{
-			Event event = facade.readEvent(login).getEvent();
-			JOptionPane.showMessageDialog(null, event.getLogin()+'\n'+event.getPassword());
+			Event event = facade.readEvent(nome).getEvent();
+			JOptionPane.showMessageDialog(null, event.getName()+'\n'+event.getData().toString());
 		}
 	}
 
@@ -78,7 +81,7 @@ public class EventUI implements IForms{
 		String exceptionsText = "";
 
 		for(Event event : response.getEvents()){
-			nomes += event.getNome() + '\n';
+			nomes += event.getName() + '\t' + event.getData() +'\n';
 		}
 
 		for(String exception : response.getErrors()){
