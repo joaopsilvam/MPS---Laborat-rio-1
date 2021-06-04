@@ -1,5 +1,6 @@
 package view;
 
+import business.control.Facade;
 import business.control.UserControl;
 import business.model.responses.UserListResponse;
 import business.model.User;
@@ -9,7 +10,11 @@ import java.util.List;
 
 public class UserUI implements IForms{
 
-	public UserUI(){}
+	Facade facade;
+
+	public UserUI(Facade facade){
+		this.facade = facade;
+	}
 
 	public boolean menu() {
 		String operation = JOptionPane.showInputDialog("Que operação você deseja fazer no sistema?" +

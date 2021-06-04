@@ -1,8 +1,17 @@
 package view;
 
+import business.control.Facade;
+import exceptions.InfraException;
+
 import javax.swing.*;
 
 public class SistemUI implements IForms{
+
+    Facade facade;
+
+    public SistemUI() throws InfraException {
+        this.facade = Facade.getInstance();
+    }
 
     public boolean menu(){
         String operation = JOptionPane.showInputDialog("Com o quê você deseja trabalhar?" +
@@ -25,11 +34,13 @@ public class SistemUI implements IForms{
         return true;
     }
 
-    private void sectionUsers() { new UserUI().menu(); }
+    private void sectionUsers() {
+        new UserUI(this.facade).menu();
+    }
     private void sectionEvents() {
-        new EventUI().menu();
+        new EventUI(this.facade).menu();
     }
     private void sectionDocuments() {
-        new DocumentUI().menu();
+        new DocumentUI(this.facade).menu();
     }
 }
