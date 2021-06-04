@@ -115,7 +115,7 @@ public class Facade {
         return this.eventControl.readAll();
     }
 
-    public List<String> deleteEvents(String name) {
+    public List<String> deleteEvent(String name) {
         return this.eventControl.delete(name);
     }
 }

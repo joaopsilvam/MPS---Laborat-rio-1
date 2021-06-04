@@ -13,7 +13,14 @@ public class Event implements Serializable {
     private HashMap<String, User> users;
 
     public Event(){
-        this("", "", new Date(), new HashMap<>());
+        this("", "", new Date());
+    }
+    
+    public Event(String nome, String descricao, Date data){
+        this.nome = nome;
+        this.descricao = descricao;
+        this.data = data;
+        this.users = new HashMap<>();
     }
 
     public Event(String nome, String descricao, Date data, HashMap<String, User> users){
