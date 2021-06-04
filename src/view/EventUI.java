@@ -23,6 +23,10 @@ public class EventUI implements IForms{
                 "\n[a] Publicar evento\n[b] Verificar um evento\n[c] Verificar todos os eventos\n" +
                 "[d] Apagar evento\n[e] Verificar usuários inscritos em um evento\n[x] Voltar");
 
+		if(operation == null){
+			operation = "x";
+		}
+
 		switch (operation) {
 		case "a":
 			addOperation();

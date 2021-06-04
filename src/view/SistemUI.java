@@ -17,19 +17,25 @@ public class SistemUI implements IForms{
         String operation = JOptionPane.showInputDialog("Com o quê você deseja trabalhar?" +
                 "\n[a] Usuários\n[b] Eventos\n[c] Documentos\n[x] Sair");
 
-        if(operation.equals("a")) {
-            sectionUsers();
+        if(operation == null){
+            operation = "x";
         }
-        else if(operation.equals("b")) {
-            sectionEvents();
-        }
-        else if(operation.equals("c")) {
-            sectionDocuments();
-        }
-        else if(operation.equals("x")) {
-            return false;
-        }else{
-            JOptionPane.showMessageDialog(null, "Informe uma operação válida");
+
+        switch (operation) {
+            case "a":
+                sectionUsers();
+                break;
+            case "b":
+                sectionEvents();
+                break;
+            case "c":
+                sectionDocuments();
+                break;
+            case "x":
+                return false;
+            default:
+                JOptionPane.showMessageDialog(null, "Informe uma operação válida");
+                break;
         }
         return true;
     }

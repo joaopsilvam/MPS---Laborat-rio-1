@@ -20,6 +20,10 @@ public class UserUI implements IForms{
 				"\n[a] Cadastrar usuário\n[b] Verificar um usuário\n[c] Verificar todos os usuários\n" +
 				"[d] Deletar usuário\n[e] Cadastrar usuário em um evento\n[x] Voltar");
 
+		if(operation == null){
+			operation = "x";
+		}
+
 		switch (operation) {
 			case "a":
 				addOperation();

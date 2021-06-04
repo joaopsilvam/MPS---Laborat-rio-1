@@ -24,6 +24,10 @@ public class DocumentUI implements IForms{
                 "\n[a] Publicar documento\n[b] Verificar um documento\n[c] Verificar todos os documentos\n" +
                 "[d] Apagar documento\n[x] Voltar");
 
+        if(operation == null){
+            operation = "x";
+        }
+
         switch (operation) {
             case "a":
                 addOperation();
