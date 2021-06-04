@@ -1,8 +1,9 @@
 package business.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Document {
+public class Document implements Serializable {
 
     private String data;
     private String name;
