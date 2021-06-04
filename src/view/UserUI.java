@@ -20,22 +20,24 @@ public class UserUI implements IForms{
 				"\n[a] Cadastrar usuário\n[b] Verificar um usuário\n[c] Verificar todos os usuários\n" +
 				"[d] Deletar usuário\n[x] Voltar");
 
-		if(operation.equals("a")) {
-			addOperation();
-		}
-		else if(operation.equals("b")) {
-			listOneOperation();
-		}
-		else if(operation.equals("c")) {
-			listAllOperation();
-		}
-		else if(operation.equals("d")) {
-			delOperation();
-		}
-		else if(operation.equals("x")) {
-			return false;
-		}else{
-			JOptionPane.showMessageDialog(null, "Informe uma operação válida");
+		switch (operation) {
+			case "a":
+				addOperation();
+				break;
+			case "b":
+				listOneOperation();
+				break;
+			case "c":
+				listAllOperation();
+				break;
+			case "d":
+				delOperation();
+				break;
+			case "x":
+				return false;
+			default:
+				JOptionPane.showMessageDialog(null, "Informe uma operação válida");
+				break;
 		}
 		return true;
 	}
