@@ -4,6 +4,8 @@ import business.model.Document;
 import business.model.responses.DocumentListReponse;
 import business.model.responses.DocumentResponse;
 import exceptions.DocumentException;
+import exceptions.InfraException;
+import infra.DocumentPersistence;
 
 import javax.print.Doc;
 import java.util.ArrayList;
@@ -14,8 +16,17 @@ public class DocumentControl {
 
     private HashMap<String, Document> documents;
 
-    public DocumentControl(){
+    public DocumentControl() throws InfraException{
         documents = new HashMap<>();
+        loadData();
+    }
+
+    private void loadData() throws InfraException {
+        documents = DocumentPersistence.loadDocuments("documents.dat");
+    }
+
+    public void saveData(){
+        DocumentPersistence.saveDocuments(documents, "documents.dat");
     }
 
     public List<String> add(Document data){

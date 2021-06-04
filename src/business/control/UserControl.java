@@ -10,13 +10,14 @@ import exceptions.UserException;
 import infra.UserPersistence;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
 public class UserControl {
 
 	private HashMap<String, User> users;
-	private List<IUserValidator> validators;
+	private final List<IUserValidator> validators;
 
 	public UserControl() throws InfraException{
 		UserValidatorFactory userValidatorFactory = new UserValidatorFactory();
