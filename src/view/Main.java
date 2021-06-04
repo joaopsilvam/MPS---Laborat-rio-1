@@ -1,5 +1,6 @@
 package view;
 
+import business.control.Facade;
 import business.control.UserControl;
 import exceptions.InfraException;
 
@@ -29,6 +30,12 @@ public class Main {
 
 		while(cond){
 			cond = sistemUI.menu();
+		}
+		try{
+			Facade.getInstance().saveData();
+		}
+		catch (InfraException e){
+			JOptionPane.showMessageDialog(null, e.getMessage());
 		}
 //		sistemUI.close();
 	}
