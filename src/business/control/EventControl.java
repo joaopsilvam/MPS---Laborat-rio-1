@@ -53,7 +53,7 @@ public class EventControl {
         return new EventResponse(event, errors);
     }
 
-    public EventListResponse readAll(String name){
+    public EventListResponse readAll(){
         List<String> errors = new ArrayList<>();
         List<Event> events = new ArrayList<>();
 

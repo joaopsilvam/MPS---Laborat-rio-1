@@ -1,9 +1,9 @@
 package business.control;
 
+import business.model.Document;
 import business.model.Event;
 import business.model.User;
-import business.model.responses.EventResponse;
-import business.model.responses.UserResponse;
+import business.model.responses.*;
 import exceptions.EventException;
 import exceptions.InfraException;
 
@@ -28,9 +28,15 @@ public class Facade {
     private EventControl eventControl;
 
     private Facade() throws InfraException{
-        userControl = new UserControl();
-        documentControl = new DocumentControl();
-        eventControl = new EventControl();
+        this.userControl = new UserControl();
+        this.documentControl = new DocumentControl();
+        this.eventControl = new EventControl();
+    }
+
+    public void saveData(){
+        this.userControl.saveData();
+        this.documentControl.saveData();
+        this.eventControl.saveData();
     }
 
     public List<String> addUserIntoEvent(String userLogin, String eventName){
@@ -65,5 +71,51 @@ public class Facade {
         if(event.getUsers().containsKey(userLogin)){
             throw new EventException("Usuário já está cadastrado neste evento");
         }
+    }
+
+    public List<String> addUser(User user) {
+        return this.userControl.add(user);
+    }
+
+    public UserListResponse readAllUsers() {
+        return this.userControl.readAll();
+    }
+
+    public UserResponse readUser(String login) {
+        return this.userControl.read(login);
+    }
+
+    public List<String> deleteUser(String login) {
+        return this.userControl.delete(login);
+    }
+
+    public List<String> addDocument(Document data) {
+        return this.documentControl.add(data);
+    }
+
+    public DocumentResponse readDocument(String name) {
+        return this.documentControl.read(name);
+    }
+
+    public DocumentListReponse readAllDocuments() {
+        return this.documentControl.readAll();
+    }
+
+    public List<String> deleteDocument(String name) { return this.documentControl.delete(name); }
+
+    public List<String> addEvent(Event event) {
+        return this.eventControl.add(event);
+    }
+
+    public EventResponse readEvent(String name) {
+        return this.eventControl.read(name);
+    }
+
+    public EventListResponse readAllEvents(String name) {
+        return this.eventControl.readAll();
+    }
+
+    public List<String> deleteEvents(String name) {
+        return this.eventControl.delete(name);
     }
 }
