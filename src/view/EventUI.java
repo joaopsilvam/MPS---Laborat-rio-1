@@ -1,8 +1,17 @@
 package view;
 
+import business.control.Facade;
+
 import javax.swing.*;
 
 public class EventUI implements IForms{
+
+    Facade facade;
+
+    public EventUI(Facade facade){
+        this.facade = facade;
+    }
+
     public boolean menu() {
         String operation = JOptionPane.showInputDialog("Que operação você deseja fazer no sistema?" +
                 "\n[a] Publicar evento\n[b] Verificar um evento\n[c] Verificar todos os eventos\n" +

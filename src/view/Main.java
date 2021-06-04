@@ -10,7 +10,13 @@ public class Main {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-		IForms sistemUI = new SistemUI();
+
+		IForms sistemUI = null;
+		try {
+			sistemUI = new SistemUI();
+		} catch (InfraException e) {
+			e.printStackTrace();
+		}
 		Boolean cond = true;
 
 //		try {

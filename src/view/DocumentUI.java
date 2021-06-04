@@ -1,8 +1,17 @@
 package view;
 
+import business.control.Facade;
+import business.model.Document;
+
 import javax.swing.*;
 
 public class DocumentUI implements IForms{
+
+    Facade facade;
+
+    public DocumentUI(Facade facade){
+        this.facade = facade;
+    }
 
     public boolean menu() {
         String operation = JOptionPane.showInputDialog("Que operação você deseja fazer no sistema?" +
