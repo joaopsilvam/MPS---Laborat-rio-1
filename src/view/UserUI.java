@@ -18,7 +18,7 @@ public class UserUI implements IForms{
 	public boolean menu() {
 		String operation = JOptionPane.showInputDialog("Que operação você deseja fazer no sistema?" +
 				"\n[a] Cadastrar usuário\n[b] Verificar um usuário\n[c] Verificar todos os usuários\n" +
-				"[d] Deletar usuário\n[x] Voltar");
+				"[d] Deletar usuário\n[e] Cadastrar usuário em um evento\n[x] Voltar");
 
 		switch (operation) {
 			case "a":
@@ -32,6 +32,9 @@ public class UserUI implements IForms{
 				break;
 			case "d":
 				delOperation();
+				break;
+			case "e":
+				addUserIntoEvento();
 				break;
 			case "x":
 				return false;
@@ -103,4 +106,16 @@ public class UserUI implements IForms{
 		}
 		JOptionPane.showMessageDialog(null, exceptions);
 	}
+
+	public void addUserIntoEvento() {
+		String login = JOptionPane.showInputDialog("Informe o login do usuário:");
+		String eventName = JOptionPane.showInputDialog("Informe o nome do evento:");
+		String exceptions = "";
+		for (String e: facade.addUserIntoEvent(login, eventName)) {
+			exceptions += e+'\n';
+		}
+		if(!exceptions.equals("")) JOptionPane.showMessageDialog(null, exceptions);
+		else JOptionPane.showMessageDialog(null, "O usuário foi cadastrado no evento com sucesso!");
+	}
+
 }

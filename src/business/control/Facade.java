@@ -118,4 +118,8 @@ public class Facade {
     public List<String> deleteEvent(String name) {
         return this.eventControl.delete(name);
     }
+
+    public HashMap<String, User> listAllUsersOnEvent(String nameEvent) {
+        return this.eventControl.read(nameEvent).getEvent().getUsers();
+    }
 }

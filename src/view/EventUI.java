@@ -2,6 +2,7 @@ package view;
 
 import business.control.Facade;
 import business.model.Event;
+import business.model.User;
 import business.model.responses.EventListResponse;
 
 import javax.swing.*;
@@ -19,7 +20,7 @@ public class EventUI implements IForms{
     public boolean menu() {
         String operation = JOptionPane.showInputDialog("Que operação você deseja fazer no sistema?" +
                 "\n[a] Publicar evento\n[b] Verificar um evento\n[c] Verificar todos os eventos\n" +
-                "[d] Apagar evento\n[x] Voltar");
+                "[d] Apagar evento\n[e] Verificar usuários inscritos em um evento\n[x] Voltar");
 
 		switch (operation) {
 		case "a":
@@ -33,6 +34,9 @@ public class EventUI implements IForms{
 			break;
 		case "d":
 			delOperation();
+			break;
+		case "e":
+			listAllUsersOnEvent();
 			break;
 		case "x":
 			return false;
@@ -104,4 +108,14 @@ public class EventUI implements IForms{
 		}
 		JOptionPane.showMessageDialog(null, exceptions);
 	}
+
+	private void listAllUsersOnEvent() {
+		String nome = JOptionPane.showInputDialog("Informe o nome do evento");
+
+		String users = "";
+		for (User u: facade.listAllUsersOnEvent(nome).values()) {
+			users += u.getLogin()+'\n';
+		}
+		JOptionPane.showMessageDialog(null, users);
+    }
 }
