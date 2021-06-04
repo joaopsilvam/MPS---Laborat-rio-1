@@ -8,6 +8,7 @@ import exceptions.EventException;
 import exceptions.InfraException;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -119,7 +120,20 @@ public class Facade {
         return this.eventControl.delete(name);
     }
 
-    public HashMap<String, User> listAllUsersOnEvent(String nameEvent) {
-        return this.eventControl.read(nameEvent).getEvent().getUsers();
+    public UserListResponse listAllUsersOnEvent(String nameEvent) {
+        EventResponse response = this.eventControl.read(nameEvent);
+        Event event = response.getEvent();
+        List<String> errors = response.getErrors();
+        List<User> users = new ArrayList<>();
+
+        if(!errors.isEmpty()){
+            return new UserListResponse(new ArrayList<>(), errors);
+        }
+
+        for(User user : event.getUsers().values()){
+            users.add(user);
+        }
+
+        return new UserListResponse(users, errors);
     }
 }
