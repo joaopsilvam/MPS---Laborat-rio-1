@@ -14,8 +14,8 @@ public class SistemUI implements IForms{
     }
 
     public boolean menu(){
-        String operation = JOptionPane.showInputDialog("Com o quê você deseja trabalhar?" +
-                "\n[a] Usuários\n[b] Eventos\n[c] Documentos\n[x] Sair");
+        String operation = JOptionPane.showInputDialog("Como você deseja entrar no sistema?" +
+                "\n[a] Usuário\n[b] Gerente\n[x] Sair");
 
         if(operation == null){
             operation = "x";
@@ -23,13 +23,10 @@ public class SistemUI implements IForms{
 
         switch (operation) {
             case "a":
-                sectionUsers();
+                sectionUser();
                 break;
             case "b":
-                sectionEvents();
-                break;
-            case "c":
-                sectionDocuments();
+                sectionManager();
                 break;
             case "x":
                 return false;
@@ -40,13 +37,8 @@ public class SistemUI implements IForms{
         return true;
     }
 
-    private void sectionUsers() {
-        new UserUI(this.facade).menu();
+    private void sectionUser() {
+        new UserSystemUI(this.facade).menu();
     }
-    private void sectionEvents() {
-        new EventUI(this.facade).menu();
-    }
-    private void sectionDocuments() {
-        new DocumentUI(this.facade).menu();
-    }
+    private void sectionManager() { new ManagerSystemUI(this.facade).menu(); }
 }
