@@ -11,8 +11,8 @@ public abstract class ReportManagerBase {
 
     private List<UserStatistic> statistics;
 
-    public ReportManagerBase(){
-        statistics = new ArrayList<>();
+    public void init(){
+        statistics = loadFile();
     }
 
     public void registerLoginStatistic(User user){
@@ -27,6 +27,8 @@ public abstract class ReportManagerBase {
     public void generate(){
         saveFile(statistics);
     }
+
+    protected abstract List<UserStatistic> loadFile();
 
     protected abstract void saveFile(List<UserStatistic> statistics);
 }
