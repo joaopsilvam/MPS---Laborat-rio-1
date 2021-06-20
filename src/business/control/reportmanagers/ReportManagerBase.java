@@ -9,13 +9,15 @@ import java.util.List;
 
 public abstract class ReportManagerBase {
 
+    private static final String REPORT_CACHE_FILE = "report_cache.dat";
+
     private List<UserStatistic> statistics;
 
-    public void init(){
+    public ReportManagerBase(){
         statistics = loadFile();
     }
 
-    public void registerLoginStatistic(User user){
+    public final void registerLoginStatistic(User user){
         UserStatistic statistic = new UserStatistic();
 
         statistic.setLoginDate(new Date());
@@ -24,11 +26,14 @@ public abstract class ReportManagerBase {
         statistics.add(statistic);
     }
 
-    public void generate(){
-        saveFile(statistics);
+    public final void saveReport(){
+        String report = generateContent(statistics);
+
     }
 
-    protected abstract List<UserStatistic> loadFile();
+    private List<UserStatistic> loadFile(){
+        return new ArrayList<>();
+    }
 
-    protected abstract void saveFile(List<UserStatistic> statistics);
+    protected abstract String generateContent(List<UserStatistic> statistics);
 }
