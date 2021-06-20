@@ -5,7 +5,7 @@ import java.util.Date;
 public class UserStatistic {
 
     private Date loginDate;
-    private String userName;
+    private User user;
 
     public Date getLoginDate() {
         return loginDate;
@@ -15,11 +15,11 @@ public class UserStatistic {
         this.loginDate = loginDate;
     }
 
-    public String getUserName() {
-        return userName;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUser(User user) {
+        this.user = user;
     }
 }

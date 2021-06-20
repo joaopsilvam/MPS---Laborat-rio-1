@@ -1,5 +1,6 @@
 package business.control.reportmanagers;
 
+import business.model.User;
 import business.model.UserStatistic;
 
 import java.util.ArrayList;
@@ -14,11 +15,11 @@ public abstract class ReportManagerBase {
         statistics = new ArrayList<>();
     }
 
-    public void registerLoginStatistic(String userName){
+    public void registerLoginStatistic(User user){
         UserStatistic statistic = new UserStatistic();
 
         statistic.setLoginDate(new Date());
-        statistic.setUserName(userName);
+        statistic.setUser(user);
 
         statistics.add(statistic);
     }
