@@ -10,4 +10,9 @@ public class ReportManagerHtml extends ReportManagerBase{
     protected String generateContent(List<UserStatistic> statistics) {
         return "";
     }
+
+    @Override
+    protected String getReportType() {
+        return "html";
+    }
 }

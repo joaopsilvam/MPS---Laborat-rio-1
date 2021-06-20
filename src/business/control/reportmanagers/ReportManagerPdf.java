@@ -10,4 +10,9 @@ public class ReportManagerPdf extends ReportManagerBase{
     protected String generateContent(List<UserStatistic> statistics) {
         return "";
     }
+
+    @Override
+    protected String getReportType() {
+        return "pdf";
+    }
 }

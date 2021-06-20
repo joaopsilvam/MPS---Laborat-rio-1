@@ -2,19 +2,35 @@ package business.control.reportmanagers;
 
 import business.model.User;
 import business.model.UserStatistic;
-import exceptions.InfraException;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
 import java.util.Date;
 import java.util.List;
-import javax.xml.bind.DatatypeConverter;
 
 public class ReportManagerTxt extends ReportManagerBase{
 
     @Override
+    protected String getReportType() {
+        return "txt";
+    }
+
+    @Override
     protected String generateContent(List<UserStatistic> statistics){
-        return "";
+
+        final String userLabel = "Usuário: ";
+        final String dateLabel = "Date: ";
+
+        StringBuffer buffer = new StringBuffer();
+
+        for(UserStatistic statistic : statistics){
+            User user = statistic.getUser();
+            Date loginDate = statistic.getLoginDate();
+
+            buffer.append(userLabel);
+            buffer.append(user.getLogin());
+            buffer.append(dateLabel);
+            buffer.append(loginDate);
+            buffer.append('\n');
+        }
+
+        return buffer.toString();
     }
 }

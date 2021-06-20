@@ -36,4 +36,6 @@ public abstract class ReportManagerBase {
     }
 
     protected abstract String generateContent(List<UserStatistic> statistics);
+
+    protected abstract String getReportType();
 }
