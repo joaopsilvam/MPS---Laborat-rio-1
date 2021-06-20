@@ -24,9 +24,9 @@ public abstract class ReportManagerBase {
         statistics.add(statistic);
     }
 
-    public String generate(){
-        return generateContent(statistics);
+    public void generate(){
+        saveFile(statistics);
     }
 
-    protected abstract String generateContent(List<UserStatistic> statistics);
+    protected abstract void saveFile(List<UserStatistic> statistics);
 }

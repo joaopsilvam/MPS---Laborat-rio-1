@@ -7,7 +7,7 @@ import java.util.List;
 public class ReportManagerHtml extends ReportManagerBase{
 
     @Override
-    protected String generateContent(List<UserStatistic> statistics) {
-        return "";
+    protected void saveFile(List<UserStatistic> statistics) {
+
     }
 }
