@@ -4,13 +4,11 @@ import business.control.reportmanagers.ReportManagerBase;
 import business.model.Document;
 import business.model.Event;
 import business.model.User;
-import business.model.UserStatistic;
 import business.model.responses.*;
 import exceptions.EventException;
 import exceptions.InfraException;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -140,15 +138,7 @@ public class Facade {
         return new UserListResponse(users, errors);
     }
 
-    public void init(){
-        this.reportManagerBase.init();
-    }
-
     public void registerLoginStatistic(User user){
         this.reportManagerBase.registerLoginStatistic(user);
-    }
-
-    public void generate(){
-        this.reportManagerBase.generate();
     }
 }
