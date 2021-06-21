@@ -1,6 +1,5 @@
 package business.control;
 
-import business.control.factories.ReportManagerFactory;
 import business.control.reportmanagers.ReportManagerBase;
 import business.model.Document;
 import business.model.Event;
