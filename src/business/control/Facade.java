@@ -36,7 +36,6 @@ public class Facade {
         this.documentControl = new DocumentControl();
         this.eventControl = new EventControl();
         this.userStatisticControl = new UserStatisticControl();
-        this.reportManager = new ReportManagerFactory().create("html", this.userStatisticControl);
     }
 
     public void saveData(){
