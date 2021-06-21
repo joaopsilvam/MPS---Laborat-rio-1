@@ -1,6 +1,7 @@
 package view;
 
 import business.control.Facade;
+import business.model.User;
 
 import javax.swing.*;
 
@@ -20,12 +21,14 @@ public class UserSystemUI implements IForms{
             return false;
         }
 
-        login(login);
+        login(login, pass);
 
         return true;
     }
 
-    private void login(String login) {
-        JOptionPane.showMessageDialog(null,"O usuário "+login+" fez login no sistema!");
+    private void login(String login, String pass) {
+        User user = new User(login, pass);
+
+        facade.registerLoginStatistic(user);
     }
 }
