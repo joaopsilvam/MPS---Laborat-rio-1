@@ -1,5 +1,6 @@
 package business.control.reportmanagers;
 
+import business.control.UserStatisticControl;
 import business.model.User;
 import business.model.UserStatistic;
 import exceptions.InfraException;
@@ -9,7 +10,9 @@ import java.util.List;
 
 public class ReportManagerTxt extends ReportManagerBase{
 
-    public ReportManagerTxt() throws InfraException{}
+    public ReportManagerTxt(UserStatisticControl userStatisticControl) {
+        super(userStatisticControl);
+    }
 
     @Override
     protected String getReportType() {

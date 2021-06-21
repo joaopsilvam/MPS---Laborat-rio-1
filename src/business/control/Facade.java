@@ -1,5 +1,6 @@
 package business.control;
 
+import business.control.factories.ReportManagerFactory;
 import business.control.reportmanagers.ReportManagerBase;
 import business.model.Document;
 import business.model.Event;
@@ -28,17 +29,20 @@ public class Facade {
     private DocumentControl documentControl;
     private EventControl eventControl;
     private ReportManagerBase reportManagerBase;
+    private UserStatisticControl userStatisticControl;
 
     private Facade() throws InfraException{
         this.userControl = new UserControl();
         this.documentControl = new DocumentControl();
         this.eventControl = new EventControl();
+        this.userStatisticControl = new UserStatisticControl();
     }
 
     public void saveData(){
         this.userControl.saveData();
         this.documentControl.saveData();
         this.eventControl.saveData();
+        this.reportManagerBase.saveReport();
     }
 
     public List<String> addUserIntoEvent(String userLogin, String eventName){
@@ -138,8 +142,8 @@ public class Facade {
         return new UserListResponse(users, errors);
     }
 
-    public void registerLoginStatistic(User user){
+    public void login(User user){
         this.userControl.login(user);
-        this.reportManagerBase.registerLoginStatistic(user);
+        this.userStatisticControl.registerLoginStatistic(user);
     }
 }

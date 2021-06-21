@@ -1,5 +1,6 @@
 package business.control.reportmanagers;
 
+import business.control.UserStatisticControl;
 import business.model.User;
 import business.model.UserStatistic;
 import exceptions.InfraException;
@@ -9,32 +10,14 @@ import java.util.List;
 
 public abstract class ReportManagerBase {
 
-    private static final String REPORT_CACHE_FILE = "report_cache.dat";
+    private UserStatisticControl userStatisticControl;
 
-    private List<UserStatistic> statistics;
-
-    public ReportManagerBase() throws InfraException{
-        statistics = loadFile();
-    }
-
-    public final void registerLoginStatistic(User user){
-        UserStatistic statistic = new UserStatistic();
-
-        statistic.setLoginDate(new Date());
-        statistic.setUser(user);
-
-        statistics.add(statistic);
+    public ReportManagerBase(UserStatisticControl userStatisticControl){
+        this.userStatisticControl = userStatisticControl;
     }
 
     public final void saveReport(){
-
-        String report = generateContent(statistics);
-
-        UserStatisticPersistence.saveStatistics(statistics, REPORT_CACHE_FILE);
-    }
-
-    private List<UserStatistic> loadFile() throws InfraException {
-        return UserStatisticPersistence.loadStatistics(REPORT_CACHE_FILE);
+        String report = generateContent(userStatisticControl.getStatistics());
     }
 
     protected abstract String generateContent(List<UserStatistic> statistics);

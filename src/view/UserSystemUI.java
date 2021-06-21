@@ -29,6 +29,6 @@ public class UserSystemUI implements IForms{
     private void login(String login, String pass) {
         User user = new User(login, pass);
 
-        facade.registerLoginStatistic(user);
+        facade.login(user);
     }
 }

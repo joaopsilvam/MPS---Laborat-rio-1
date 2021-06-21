@@ -1,5 +1,6 @@
 package business.control.reportmanagers;
 
+import business.control.UserStatisticControl;
 import business.model.User;
 import business.model.UserStatistic;
 import com.sun.xml.internal.ws.api.ha.StickyFeature;
@@ -10,7 +11,9 @@ import java.util.List;
 
 public class ReportManagerHtml extends ReportManagerBase{
 
-    public ReportManagerHtml() throws InfraException {}
+    public ReportManagerHtml(UserStatisticControl userStatisticControl) {
+        super(userStatisticControl);
+    }
 
     @Override
     protected String generateContent(List<UserStatistic> statistics) {
