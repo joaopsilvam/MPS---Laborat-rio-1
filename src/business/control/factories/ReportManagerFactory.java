@@ -4,10 +4,11 @@ import business.control.reportmanagers.ReportManagerBase;
 import business.control.reportmanagers.ReportManagerHtml;
 import business.control.reportmanagers.ReportManagerPdf;
 import business.control.reportmanagers.ReportManagerTxt;
+import exceptions.InfraException;
 
 public class ReportManagerFactory {
 
-    public ReportManagerBase create(String reportType){
+    public ReportManagerBase create(String reportType) throws InfraException {
 
         switch (reportType){
             case "txt":

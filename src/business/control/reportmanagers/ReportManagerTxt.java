@@ -2,10 +2,14 @@ package business.control.reportmanagers;
 
 import business.model.User;
 import business.model.UserStatistic;
+import exceptions.InfraException;
+
 import java.util.Date;
 import java.util.List;
 
 public class ReportManagerTxt extends ReportManagerBase{
+
+    public ReportManagerTxt() throws InfraException{}
 
     @Override
     protected String getReportType() {

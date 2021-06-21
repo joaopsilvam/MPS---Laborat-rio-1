@@ -2,8 +2,8 @@ package business.control.reportmanagers;
 
 import business.model.User;
 import business.model.UserStatistic;
-
-import java.util.ArrayList;
+import exceptions.InfraException;
+import infra.UserStatisticPersistence;
 import java.util.Date;
 import java.util.List;
 
@@ -13,7 +13,7 @@ public abstract class ReportManagerBase {
 
     private List<UserStatistic> statistics;
 
-    public ReportManagerBase(){
+    public ReportManagerBase() throws InfraException{
         statistics = loadFile();
     }
 
@@ -27,12 +27,14 @@ public abstract class ReportManagerBase {
     }
 
     public final void saveReport(){
+
         String report = generateContent(statistics);
 
+        UserStatisticPersistence.saveStatistics(statistics, REPORT_CACHE_FILE);
     }
 
-    private List<UserStatistic> loadFile(){
-        return new ArrayList<>();
+    private List<UserStatistic> loadFile() throws InfraException {
+        return UserStatisticPersistence.loadStatistics(REPORT_CACHE_FILE);
     }
 
     protected abstract String generateContent(List<UserStatistic> statistics);
