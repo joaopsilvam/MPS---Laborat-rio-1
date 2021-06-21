@@ -96,6 +96,10 @@ public class UserControl {
 		return exceptions;
 	}
 
+	public String login(User user) {
+		return "O usuário "+user.getLogin()+" fez login!";
+	}
+
 	private void avaliableUser(String login) throws UserException{
 		if(users.containsKey(login)){
 			throw new UserException("Login não disponível");

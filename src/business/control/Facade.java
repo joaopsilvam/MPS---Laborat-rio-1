@@ -139,6 +139,7 @@ public class Facade {
     }
 
     public void registerLoginStatistic(User user){
+        this.userControl.login(user);
         this.reportManagerBase.registerLoginStatistic(user);
     }
 }
