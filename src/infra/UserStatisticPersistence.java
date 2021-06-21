@@ -4,18 +4,19 @@ import business.model.UserStatistic;
 import exceptions.InfraException;
 
 import java.io.*;
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserStatisticPersistence {
 
-    public static HashMap<String, UserStatistic> loadStatistics(String nomeArquivo) throws InfraException {
+    public static List<UserStatistic> loadStatistics(String nomeArquivo) throws InfraException {
 
-        HashMap<String, UserStatistic> statistics = new HashMap<String, UserStatistic>();
+        List<UserStatistic> statistics = new ArrayList<UserStatistic>();
         try {
             File arquivo = new File(nomeArquivo);
             if (arquivo.exists()) {
                 ObjectInputStream objInput = new ObjectInputStream(new FileInputStream(arquivo));
-                statistics = (HashMap<String, UserStatistic>)objInput.readObject();
+                statistics = (List<UserStatistic>)objInput.readObject();
                 objInput.close();
             }
         } catch(IOException erro1) {
@@ -27,7 +28,7 @@ public class UserStatisticPersistence {
         return(statistics);
     }
 
-    public static void saveStatistics(HashMap<String, UserStatistic> statistics, String nomeArquivo) {
+    public static void saveStatistics(List<UserStatistic> statistics, String nomeArquivo) {
         File arquivo = new File(nomeArquivo);
         try {
             arquivo.delete();
