@@ -22,7 +22,7 @@ public class UserStatisticControl {
         return UserStatisticPersistence.loadStatistics(REPORT_CACHE_FILE);
     }
 
-    public void save(){
+    public void saveData(){
         UserStatisticPersistence.saveStatistics(statistics, REPORT_CACHE_FILE);
     }
 

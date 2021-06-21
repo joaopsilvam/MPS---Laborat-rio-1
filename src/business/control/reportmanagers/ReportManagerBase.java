@@ -18,6 +18,7 @@ public abstract class ReportManagerBase {
 
     public final void saveReport(){
         String report = generateContent(userStatisticControl.getStatistics());
+        System.out.println(report);
     }
 
     protected abstract String generateContent(List<UserStatistic> statistics);

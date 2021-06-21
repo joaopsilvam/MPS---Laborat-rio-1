@@ -28,7 +28,7 @@ public class Facade {
     private UserControl userControl;
     private DocumentControl documentControl;
     private EventControl eventControl;
-    private ReportManagerBase reportManagerBase;
+    private ReportManagerBase reportManager;
     private UserStatisticControl userStatisticControl;
 
     private Facade() throws InfraException{
@@ -36,13 +36,14 @@ public class Facade {
         this.documentControl = new DocumentControl();
         this.eventControl = new EventControl();
         this.userStatisticControl = new UserStatisticControl();
+        this.reportManager = new ReportManagerFactory().create("html", this.userStatisticControl);
     }
 
     public void saveData(){
         this.userControl.saveData();
         this.documentControl.saveData();
         this.eventControl.saveData();
-        this.reportManagerBase.saveReport();
+        this.userStatisticControl.saveData();
     }
 
     public List<String> addUserIntoEvent(String userLogin, String eventName){
@@ -145,5 +146,6 @@ public class Facade {
     public void login(User user){
         this.userControl.login(user);
         this.userStatisticControl.registerLoginStatistic(user);
+        this.reportManager.saveReport();
     }
 }
