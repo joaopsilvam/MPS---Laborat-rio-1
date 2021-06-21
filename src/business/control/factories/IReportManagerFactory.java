@@ -7,4 +7,5 @@ import exceptions.InfraException;
 
 public interface IReportManagerFactory {
     ReportManagerBase create(UserStatisticControl userStatisticControl);
+    
 }
