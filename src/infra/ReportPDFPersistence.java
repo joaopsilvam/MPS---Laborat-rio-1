@@ -34,6 +34,7 @@ public class ReportPDFPersistence implements IReportPersistence{
             document.add(paragraph);
 
             document.close();
+            pdfWriter.close();
         }
         catch(Exception e) {
             throw new InfraException();
