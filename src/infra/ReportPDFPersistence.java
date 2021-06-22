@@ -2,6 +2,7 @@ package infra;
 
 import java.io.*;
 
+import business.control.UserStatisticControl;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfObject;
 import com.itextpdf.kernel.pdf.PdfWriter;
@@ -13,6 +14,9 @@ import exceptions.InfraException;
 
 
 public class ReportPDFPersistence implements IReportPersistence{
+    public ReportPDFPersistence(UserStatisticControl userStatisticControl) {
+    }
+
     public void saveFile(String texto, String nomeArquivo) throws InfraException {
 
         FileOutputStream fileOutputStream = null;

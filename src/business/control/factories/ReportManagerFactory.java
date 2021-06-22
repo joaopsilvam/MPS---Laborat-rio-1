@@ -1,10 +1,6 @@
 package business.control.factories;
 
 import business.control.UserStatisticControl;
-import business.control.factories.IReportManagerFactory;
-import business.control.factories.ReportManagerHtmlFactory;
-import business.control.factories.ReportManagerPdfFactory;
-import business.control.factories.ReportManagerTxtFactory;
 import business.control.reportmanagers.ReportManagerBase;
 
 import java.util.HashMap;
