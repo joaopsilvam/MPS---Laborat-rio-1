@@ -3,9 +3,6 @@ package business.control.reportmanagers;
 import business.control.UserStatisticControl;
 import business.model.User;
 import business.model.UserStatistic;
-import com.sun.xml.internal.ws.api.ha.StickyFeature;
-import exceptions.InfraException;
-
 import java.util.Date;
 import java.util.List;
 
@@ -17,30 +14,30 @@ public class ReportManagerHtml extends ReportManagerBase{
 
     @Override
     protected String generateContent(List<UserStatistic> statistics) {
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder builder = new StringBuilder();
 
-        buffer.append("<!DOCTYPE html>");
-        buffer.append("<head><meta charset=\"utf-8\"></meta></head>");
-        buffer.append("<body>");
-        buffer.append("<ul>");
+        builder.append("<!DOCTYPE html>");
+        builder.append("<head><meta charset=\"utf-8\"></meta></head>");
+        builder.append("<body>");
+        builder.append("<ul>");
 
         for(UserStatistic statistic : statistics){
             User user = statistic.getUser();
             Date loginDate = statistic.getLoginDate();
 
-            buffer.append("<li>");
-            buffer.append("Usuário: ");
-            buffer.append(user.getLogin());
-            buffer.append(" - ");
-            buffer.append("Data: ");
-            buffer.append(loginDate);
-            buffer.append("</li>");
+            builder.append("<li>");
+            builder.append("Usuário: ");
+            builder.append(user.getLogin());
+            builder.append(" - ");
+            builder.append("Data: ");
+            builder.append(loginDate);
+            builder.append("</li>");
         }
 
-        buffer.append("</ul>");
-        buffer.append("</body>");
+        builder.append("</ul>");
+        builder.append("</body>");
 
-        return buffer.toString();
+        return builder.toString();
     }
 
     @Override

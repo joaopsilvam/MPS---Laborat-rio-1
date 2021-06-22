@@ -3,7 +3,6 @@ package business.control.reportmanagers;
 import business.control.UserStatisticControl;
 import business.model.User;
 import business.model.UserStatistic;
-import exceptions.InfraException;
 
 import java.util.Date;
 import java.util.List;
@@ -25,20 +24,20 @@ public class ReportManagerTxt extends ReportManagerBase{
         final String userLabel = "Usuário: ";
         final String dateLabel = "Data: ";
 
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder builder = new StringBuilder();
 
         for(UserStatistic statistic : statistics){
             User user = statistic.getUser();
             Date loginDate = statistic.getLoginDate();
 
-            buffer.append(userLabel);
-            buffer.append(user.getLogin());
-            buffer.append(" - ");
-            buffer.append(dateLabel);
-            buffer.append(loginDate);
-            buffer.append('\n');
+            builder.append(userLabel);
+            builder.append(user.getLogin());
+            builder.append(" - ");
+            builder.append(dateLabel);
+            builder.append(loginDate);
+            builder.append('\n');
         }
 
-        return buffer.toString();
+        return builder.toString();
     }
 }
