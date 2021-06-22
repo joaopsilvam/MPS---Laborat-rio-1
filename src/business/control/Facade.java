@@ -1,5 +1,6 @@
 package business.control;
 
+import business.control.factories.ReportManagerFactory;
 import business.control.reportmanagers.ReportManagerBase;
 import business.model.Document;
 import business.model.Event;
@@ -27,7 +28,6 @@ public class Facade {
     private UserControl userControl;
     private DocumentControl documentControl;
     private EventControl eventControl;
-    private ReportManagerBase reportManager;
     private UserStatisticControl userStatisticControl;
 
     private Facade() throws InfraException{
@@ -146,7 +146,10 @@ public class Facade {
         this.userStatisticControl.registerLoginStatistic(user);
     }
 
-    public void saveReport() throws InfraException{
-        this.reportManager.saveReport();
+    public void saveReport(String reportType) throws InfraException{
+        ReportManagerFactory factory = ReportManagerFactory.getInstancia();
+        ReportManagerBase reportManager = factory.create(reportType, userStatisticControl);
+
+        reportManager.saveReport();
     }
 }
