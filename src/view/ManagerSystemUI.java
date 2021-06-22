@@ -15,7 +15,7 @@ public class ManagerSystemUI implements IForms{
 
     public boolean menu(){
         String operation = JOptionPane.showInputDialog("Com o quê você deseja trabalhar?" +
-                "\n[a] Usuários\n[b] Eventos\n[c] Documentos\n[x] Sair");
+                "\n[a] Usuários\n[b] Eventos\n[c] Documentos\n[d] Relatórios\n[x] Sair");
 
         if(operation == null){
             operation = "x";
@@ -30,6 +30,9 @@ public class ManagerSystemUI implements IForms{
                 break;
             case "c":
                 sectionDocuments();
+                break;
+            case "d":
+                sectionReports();
                 break;
             case "x":
                 return false;
@@ -48,5 +51,12 @@ public class ManagerSystemUI implements IForms{
     }
     private void sectionDocuments() {
         new DocumentUI(this.facade).menu();
+    }
+    private void sectionReports() {
+        try {
+            new ReportUI(this.facade).menu();
+        } catch (InfraException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
     }
 }
