@@ -32,6 +32,6 @@ public class ReportPersistenceFactory {
     public IReportPersistence create(String typeReport , UserStatisticControl userStatisticControl){
         IReportPersistenceFactory factory = this.reportPersistenceFactories.get(typeReport);
 
-        return factory.create(userStatisticControl);
+        return factory.create();
     }
 }

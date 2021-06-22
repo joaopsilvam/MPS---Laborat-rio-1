@@ -12,8 +12,6 @@ import exceptions.InfraException;
 
 
 public class ReportPDFPersistence implements IReportPersistence{
-    public ReportPDFPersistence(UserStatisticControl userStatisticControl) {
-    }
 
     public void saveFile(String texto, String nomeArquivo) throws InfraException {
 

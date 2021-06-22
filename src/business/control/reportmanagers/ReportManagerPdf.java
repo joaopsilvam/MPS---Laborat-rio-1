@@ -27,6 +27,7 @@ public class ReportManagerPdf extends ReportManagerBase{
 
             buffer.append(userLabel);
             buffer.append(user.getLogin());
+            buffer.append(" - ");
             buffer.append(dateLabel);
             buffer.append(loginDate);
             buffer.append('\n');

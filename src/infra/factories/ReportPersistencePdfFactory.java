@@ -6,7 +6,7 @@ import infra.ReportPDFPersistence;
 
 public class ReportPersistencePdfFactory implements IReportPersistenceFactory {
     @Override
-    public IReportPersistence create(UserStatisticControl userStatisticControl) {
-        return new ReportPDFPersistence(userStatisticControl);
+    public IReportPersistence create() {
+        return new ReportPDFPersistence();
     }
 }

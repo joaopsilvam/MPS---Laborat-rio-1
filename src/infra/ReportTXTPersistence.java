@@ -6,8 +6,6 @@ import java.io.*;
 
 
 public class ReportTXTPersistence implements IReportPersistence {
-    public ReportTXTPersistence(UserStatisticControl userStatisticControl) {
-    }
 
     public void saveFile(String texto, String nomeArquivo) {
         File arquivo = new File(nomeArquivo+".txt");

@@ -7,9 +7,6 @@ import java.io.*;
 import java.util.List;
 
 public class ReportHTMLPersistence implements IReportPersistence{
-    public ReportHTMLPersistence(UserStatisticControl userStatisticControl) {
-
-    }
 
     public void saveFile(String texto, String nomeArquivo) {
         File arquivo = new File(nomeArquivo+".html");
