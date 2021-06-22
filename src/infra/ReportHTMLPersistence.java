@@ -5,8 +5,8 @@ import business.model.UserStatistic;
 import java.io.*;
 import java.util.List;
 
-public class ReportHTMLPersistence {
-    public static void saveFile(String texto, String nomeArquivo) {
+public class ReportHTMLPersistence implements IReportPersistence{
+    public void saveFile(String texto, String nomeArquivo) {
         File arquivo = new File(nomeArquivo);
         try {
             arquivo.delete();

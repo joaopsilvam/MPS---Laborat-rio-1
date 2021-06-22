@@ -3,18 +3,16 @@ package infra;
 import java.io.*;
 
 
-public class ReportTXTPersistence {
-    public static void saveFile(byte[] decodedBytes, String nomeArquivo) {
+public class ReportTXTPersistence implements IReportPersistence{
+    public void saveFile(String texto, String nomeArquivo) {
         File arquivo = new File(nomeArquivo);
         try {
             arquivo.delete();
             arquivo.createNewFile();
 
-            FileOutputStream fop = new FileOutputStream(arquivo);
-
-            fop.write(decodedBytes);
-            fop.flush();
-            fop.close();
+            FileWriter writer = new FileWriter(arquivo);
+            writer.write(texto);
+            writer.close();
 
         } catch(IOException erro) {
             System.out.printf("Erro: %s", erro.getMessage());
