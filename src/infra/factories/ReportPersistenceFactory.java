@@ -29,7 +29,7 @@ public class ReportPersistenceFactory {
         return instancia;
     }
 
-    public IReportPersistence create(String typeReport , UserStatisticControl userStatisticControl){
+    public IReportPersistence create(String typeReport){
         IReportPersistenceFactory factory = this.reportPersistenceFactories.get(typeReport);
 
         return factory.create();
