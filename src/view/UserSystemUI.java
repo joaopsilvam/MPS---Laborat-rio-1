@@ -2,6 +2,7 @@ package view;
 
 import business.control.Facade;
 import business.model.User;
+import exceptions.InfraException;
 
 import javax.swing.*;
 
@@ -21,12 +22,18 @@ public class UserSystemUI implements IForms{
             return false;
         }
 
-        login(login, pass);
+        try {
+            login(login, pass);
+        }
+        catch (InfraException e){
+            JOptionPane.showMessageDialog(null, e.getMessage());
+            System.exit(1);
+        }
 
         return true;
     }
 
-    private void login(String login, String pass) {
+    private void login(String login, String pass) throws InfraException {
         User user = new User(login, pass);
 
         facade.login(user);

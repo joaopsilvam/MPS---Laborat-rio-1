@@ -141,9 +141,12 @@ public class Facade {
         return new UserListResponse(users, errors);
     }
 
-    public void login(User user){
+    public void login(User user) throws InfraException{
         this.userControl.login(user);
         this.userStatisticControl.registerLoginStatistic(user);
+    }
+
+    public void saveReport() throws InfraException{
         this.reportManager.saveReport();
     }
 }
