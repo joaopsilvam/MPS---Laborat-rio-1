@@ -1,5 +1,6 @@
 package business.control;
 
+import business.configuration.ApplicationConfiguration;
 import business.control.factories.ReportManagerFactory;
 import business.control.reportmanagers.ReportManagerBase;
 import business.model.Document;
@@ -31,6 +32,8 @@ public class Facade {
     private UserStatisticControl userStatisticControl;
 
     private Facade() throws InfraException{
+        ApplicationConfiguration.load();
+
         this.userControl = new UserControl();
         this.documentControl = new DocumentControl();
         this.eventControl = new EventControl();
