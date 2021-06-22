@@ -3,13 +3,11 @@ package infra;
 import java.io.*;
 
 import business.control.UserStatisticControl;
-import com.itextpdf.kernel.pdf.PdfDocument;
-import com.itextpdf.kernel.pdf.PdfObject;
-import com.itextpdf.kernel.pdf.PdfWriter;
-import com.itextpdf.layout.Document;
-import com.itextpdf.layout.element.Paragraph;
-import com.itextpdf.kernel.pdf.*;
-import exceptions.DocumentException;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfDocument;
+import com.itextpdf.text.pdf.PdfWriter;
 import exceptions.InfraException;
 
 
@@ -21,18 +19,23 @@ public class ReportPDFPersistence implements IReportPersistence{
 
         FileOutputStream fileOutputStream = null;
         PdfWriter pdfWriter = null;
-        File file;
+        Document document = null;
 
         try {
-            file = new File(nomeArquivo);
-            fileOutputStream = new FileOutputStream(file);
-            pdfWriter = new PdfWriter(fileOutputStream);
-            pdfWriter.writeString(texto);
+            document = new Document();
+            fileOutputStream = new FileOutputStream(nomeArquivo + ".pdf");
+            pdfWriter = PdfWriter.getInstance(document, fileOutputStream);
+            document.open();
 
-            pdfWriter.close();
-            fileOutputStream.close();
+            Font font = new Font(Font.FontFamily.HELVETICA, 20);
+            Paragraph paragraph = new Paragraph(texto);
+            paragraph.setFont(font);
+
+            document.add(paragraph);
+
+            document.close();
         }
-        catch(IOException e) {
+        catch(Exception e) {
             throw new InfraException();
         }
     }
