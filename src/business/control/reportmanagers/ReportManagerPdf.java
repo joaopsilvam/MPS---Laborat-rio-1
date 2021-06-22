@@ -17,7 +17,7 @@ public class ReportManagerPdf extends ReportManagerBase{
     @Override
     protected String generateContent(List<UserStatistic> statistics) {
         final String userLabel = "Usuário: ";
-        final String dateLabel = "Date: ";
+        final String dateLabel = "Data: ";
 
         StringBuffer buffer = new StringBuffer();
 
