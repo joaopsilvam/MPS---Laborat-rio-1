@@ -1,8 +1,10 @@
 package view;
 
 import business.control.Facade;
-import business.control.command.AddCommand;
-import business.control.command.Manager;
+import business.control.command.AddUserCommand;
+import business.control.command.Command;
+import business.control.command.CommandWithResult;
+import business.control.command.Executor;
 import business.model.responses.UserListResponse;
 import business.model.User;
 
@@ -12,11 +14,11 @@ import java.util.List;
 public class UserUI implements IForms{
 
 	Facade facade;
-	Manager manager;
+	Executor executor;
 
-	public UserUI(Facade facade, Manager manager){
+	public UserUI(Facade facade, Executor executor){
 		this.facade = facade;
-		this.manager = manager;
+		this.executor = executor;
 	}
 
 	public boolean menu() {
@@ -58,7 +60,10 @@ public class UserUI implements IForms{
 		String password = JOptionPane.showInputDialog("Informe a senha do usuário:");
 		User user = new User(login, password);
 
-		List<String> exceptions = manager.performOperation(user, new AddCommand(this.facade));
+		CommandWithResult<List<String>> command = new AddUserCommand(this.facade, user);
+		executor.performOperation(command);
+		List<String> exceptions = command.getResult();
+
 		System.out.println("Operação feita com o Command");
 		String exceptionsText = "";
 
