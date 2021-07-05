@@ -18,7 +18,7 @@ public class DelCommand implements Command{
     }
 
     @Override
-    public List<String> execute(User user){
-        return facade.deleteUser(user.getLogin());
+    public void execute(User user){
+        facade.deleteUser(user.getLogin());
     }
 }

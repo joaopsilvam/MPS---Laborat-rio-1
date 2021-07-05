@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Manager {
 
-    public List<String> performOperation(User user, Command command) {
-        return command.execute(user);
+    public void performOperation(User user, Command command) {
+        command.execute(user);
     }
 }

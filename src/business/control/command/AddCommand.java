@@ -18,7 +18,7 @@ public class AddCommand implements Command{
     }
 
     @Override
-    public List<String> execute(User user) {
-        return facade.addUser(user);
+    public void execute(User user) {
+        facade.addUser(user);
     }
 }

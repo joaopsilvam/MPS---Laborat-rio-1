@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface Command {
     public void execute();
-    public List<String> execute(User user);
+    public void execute(User user);
 }
