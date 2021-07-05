@@ -1,6 +1,8 @@
 package view;
 
 import business.control.Facade;
+import business.control.command.AddCommand;
+import business.control.command.Manager;
 import business.model.responses.UserListResponse;
 import business.model.User;
 
@@ -10,9 +12,11 @@ import java.util.List;
 public class UserUI implements IForms{
 
 	Facade facade;
+	Manager manager;
 
-	public UserUI(Facade facade){
+	public UserUI(Facade facade, Manager manager){
 		this.facade = facade;
+		this.manager = manager;
 	}
 
 	public boolean menu() {
@@ -54,7 +58,8 @@ public class UserUI implements IForms{
 		String password = JOptionPane.showInputDialog("Informe a senha do usuário:");
 		User user = new User(login, password);
 
-		List<String> exceptions = facade.addUser(user);
+		List<String> exceptions = manager.performOperation(user, new AddCommand(this.facade));
+		System.out.println("Operação feita com o Command");
 		String exceptionsText = "";
 
 		for (String e : exceptions) {
@@ -64,6 +69,22 @@ public class UserUI implements IForms{
 		if(!exceptions.isEmpty())
 			JOptionPane.showMessageDialog(null, exceptionsText);
 	}
+
+//	public void addOperation(){
+//		String login = JOptionPane.showInputDialog("Informe o login do usuário:");
+//		String password = JOptionPane.showInputDialog("Informe a senha do usuário:");
+//		User user = new User(login, password);
+//
+//		List<String> exceptions = facade.addUser(user);
+//		String exceptionsText = "";
+//
+//		for (String e : exceptions) {
+//			exceptionsText += e+'\n';
+//		}
+//
+//		if(!exceptions.isEmpty())
+//			JOptionPane.showMessageDialog(null, exceptionsText);
+//	}
 
 	public void listOneOperation(){
 		String login = JOptionPane.showInputDialog("Informe o login do usuário:");
