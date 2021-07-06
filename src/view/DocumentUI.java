@@ -1,11 +1,13 @@
 package view;
 
 import business.control.Facade;
+import business.control.command.*;
 import business.model.Document;
 import business.model.Event;
 import business.model.responses.DocumentListReponse;
 import business.model.responses.DocumentResponse;
 import business.model.responses.EventListResponse;
+import business.model.responses.EventResponse;
 
 import javax.swing.*;
 import java.util.Date;
@@ -14,9 +16,11 @@ import java.util.List;
 public class DocumentUI implements IForms{
 
     Facade facade;
+    Executor executor;
 
-    public DocumentUI(Facade facade){
+    public DocumentUI(Facade facade, Executor executor){
         this.facade = facade;
+        this.executor = executor;
     }
 
     public boolean menu() {
@@ -55,7 +59,10 @@ public class DocumentUI implements IForms{
         String content = JOptionPane.showInputDialog("Informe o conteúdo do documento");
         Document document = new Document(content, name, new Date());
 
-        List<String> exceptions = facade.addDocument(document);
+        CommandWithResult<List<String>> command = new AddDocumentCommand(this.facade, document);
+        executor.performOperation(command);
+        List<String> exceptions = command.getResult();
+
         String exceptionsText = "";
 
         for (String e : exceptions) {
@@ -69,37 +76,42 @@ public class DocumentUI implements IForms{
     public void listOneOperation(){
         String name = JOptionPane.showInputDialog("Informe o nome do documento");
 
-        String exceptions = "";
-        DocumentResponse response = facade.readDocument(name);
-        Document document = response.getDocument();
+        CommandWithResult<DocumentResponse> command = new ListOneDocumentCommand(this.facade, name);
+        executor.performOperation(command);
+        DocumentResponse exceptions = command.getResult();
 
-        for (String e: response.getErrors()) {
-            exceptions += e+'\n';
+        String exceptionsText = "";
+        for (String e: exceptions.getErrors()) {
+            exceptionsText += e+'\n';
         }
-        if(!exceptions.isEmpty()){
+        if(!exceptionsText.isEmpty()){
             JOptionPane.showMessageDialog(null, exceptions);
         }
         else{
+            Document document = command.getResult().getDocument();
             JOptionPane.showMessageDialog(null, '<' + document.getName()+">\n"+document.getData() + '\n');
         }
     }
 
     public void listAllOperation(){
-        DocumentListReponse response = facade.readAllDocuments();
-        String names = "";
+        CommandWithResult<DocumentListReponse> command = new ListAllDocumentCommand(this.facade);
+        executor.performOperation(command);
+        DocumentListReponse exceptions = command.getResult();
+
+        String nomes = "";
         String exceptionsText = "";
 
-        for(Document document : response.getDocuments()){
-            names += '<' + document.getName() + ">\n" + document.getData() +'\n';
+        for(Document document : command.getResult().getDocuments()){
+            nomes += document.getName() + '\t' + document.getData() +'\n';
         }
 
-        for(String exception : response.getErrors()){
+        for(String exception : command.getResult().getErrors()){
             exceptionsText += exception + '\n';
         }
 
-        JOptionPane.showMessageDialog(null, names);
+        JOptionPane.showMessageDialog(null, nomes);
 
-        if(!response.getErrors().isEmpty()){
+        if(!exceptions.getErrors().isEmpty()){
             JOptionPane.showMessageDialog(null, exceptionsText);
         }
     }
@@ -107,12 +119,16 @@ public class DocumentUI implements IForms{
     public void delOperation(){
         String name = JOptionPane.showInputDialog("Informe o nome do documento");
 
-        String exceptions = "";
-        for (String e: facade.deleteDocument(name)) {
-            exceptions += e+'\n';
+        CommandWithResult<List<String>> command = new DelDocumentCommand(this.facade, name);
+        executor.performOperation(command);
+        List<String> exceptions = command.getResult();
+
+        String exceptionsText = "";
+        for (String e: command.getResult()) {
+            exceptionsText += e+'\n';
         }
 
         if(!exceptions.isEmpty())
-            JOptionPane.showMessageDialog(null, exceptions);
+            JOptionPane.showMessageDialog(null, exceptionsText);
     }
 }

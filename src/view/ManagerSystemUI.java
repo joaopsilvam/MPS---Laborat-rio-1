@@ -1,6 +1,7 @@
 package view;
 
 import business.control.Facade;
+import business.control.command.Executor;
 import exceptions.InfraException;
 
 import javax.swing.*;
@@ -8,9 +9,10 @@ import javax.swing.*;
 public class ManagerSystemUI implements IForms{
 
     Facade facade;
-
-    public ManagerSystemUI(Facade facade)  {
+    Executor executor;
+    public ManagerSystemUI(Facade facade, Executor executor)  {
         this.facade = facade;
+        this.executor = executor;
     }
 
     public boolean menu(){
@@ -44,13 +46,13 @@ public class ManagerSystemUI implements IForms{
     }
 
     private void sectionUsers() {
-        new UserUI(this.facade).menu();
+        new UserUI(this.facade, this.executor).menu();
     }
     private void sectionEvents() {
-        new EventUI(this.facade).menu();
+        new EventUI(this.facade, this.executor).menu();
     }
     private void sectionDocuments() {
-        new DocumentUI(this.facade).menu();
+        new DocumentUI(this.facade, this.executor).menu();
     }
     private void sectionReports() {
         try {

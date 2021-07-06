@@ -1,6 +1,7 @@
 package business.control;
 
 import business.model.Event;
+import business.model.User;
 import business.model.responses.EventListResponse;
 import business.model.responses.EventResponse;
 import exceptions.EventException;
@@ -8,10 +9,30 @@ import exceptions.InfraException;
 import infra.EventPersistence;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-
 public class EventControl {
+
+    public class Memento{
+
+        private final HashMap<String, Event> events;
+
+        public Memento(HashMap<String, Event> events){
+            this.events = new HashMap<>();
+
+            for(String key : events.keySet()){
+                Event event = events.get(key);
+                Event newEvent = new Event();
+                newEvent.setUsers((HashMap<String, User>) event.getUsers().clone());
+                newEvent.setData(event.getData());
+                newEvent.setDescricao(event.getDescricao());
+                newEvent.setName(event.getName());
+
+                this.events.put(key, newEvent);
+            }
+        }
+    }
 
     private HashMap<String, Event> events;
 
@@ -75,6 +96,14 @@ public class EventControl {
         }
 
         return errors;
+    }
+
+    public void restore(EventControl.Memento memento){
+        events = memento.events;
+    }
+
+    public EventControl.Memento backup(){
+        return new EventControl.Memento(events);
     }
 
     private void avaliableEvent(String name) throws EventException {

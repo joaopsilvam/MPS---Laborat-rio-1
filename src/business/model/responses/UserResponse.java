@@ -4,7 +4,7 @@ import business.model.User;
 
 import java.util.List;
 
-public class UserResponse {
+public class UserResponse implements Response{
 
     private User user;
     private List<String> errors;

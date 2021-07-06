@@ -5,7 +5,7 @@ import business.model.Document;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DocumentResponse {
+public class DocumentResponse implements Response{
 
     private Document document;
     private List<String> errors;

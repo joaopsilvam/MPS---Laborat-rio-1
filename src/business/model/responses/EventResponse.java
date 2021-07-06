@@ -4,7 +4,7 @@ import business.model.Event;
 
 import java.util.List;
 
-public class EventResponse {
+public class EventResponse implements Response{
 
     private Event event;
     private List<String> errors;
