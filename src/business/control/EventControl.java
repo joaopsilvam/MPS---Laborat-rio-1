@@ -100,7 +100,6 @@ public class EventControl {
 
     public void restore(EventControl.Memento memento){
         events = memento.events;
-        System.out.println(events);
     }
 
     public EventControl.Memento backup(){
