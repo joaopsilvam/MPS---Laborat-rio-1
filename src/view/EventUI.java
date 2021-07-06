@@ -1,10 +1,13 @@
 package view;
 
 import business.control.Facade;
+import business.control.command.*;
 import business.model.Event;
 import business.model.User;
 import business.model.responses.EventListResponse;
+import business.model.responses.EventResponse;
 import business.model.responses.UserListResponse;
+import business.model.responses.UserResponse;
 
 import javax.swing.*;
 import java.util.Date;
@@ -13,10 +16,12 @@ import java.util.List;
 public class EventUI implements IForms{
 
     Facade facade;
+	Executor executor;
 
-    public EventUI(Facade facade){
+    public EventUI(Facade facade, Executor executor){
         this.facade = facade;
-    }
+		this.executor = executor;
+	}
 
     public boolean menu() {
         String operation = JOptionPane.showInputDialog("Que operação você deseja fazer no sistema?" +
@@ -57,7 +62,10 @@ public class EventUI implements IForms{
 		String descricao = JOptionPane.showInputDialog("Informe a descricao do evento");
 		Event event = new Event(nome, descricao, new Date());
 
-		List<String> exceptions = facade.addEvent(event);
+		CommandWithResult<List<String>> command = new AddEventCommand(this.facade, event);
+		executor.performOperation(command);
+		List<String> exceptions = command.getResult();
+
 		String exceptionsText = "";
 
 		for (String e : exceptions) {
@@ -71,35 +79,43 @@ public class EventUI implements IForms{
 	public void listOneOperation(){
 		String nome = JOptionPane.showInputDialog("Informe o nome do evento");
 
-		String exceptions = "";
-		for (String e: facade.readEvent(nome).getErrors()) {
-			exceptions += e+'\n';
+		CommandWithResult<EventResponse> command = new ListOneEventCommand(this.facade, nome);
+		executor.performOperation(command);
+		EventResponse exceptions = command.getResult();
+
+		String exceptionsText = "";
+		for (String e: exceptions.getErrors()) {
+			exceptionsText += e+'\n';
 		}
-		if(!exceptions.isEmpty()){
+		if(!exceptionsText.isEmpty()){
 			JOptionPane.showMessageDialog(null, exceptions);
 		}
 		else{
-			Event event = facade.readEvent(nome).getEvent();
+			Event event = command.getResult().getEvent();
 			JOptionPane.showMessageDialog(null, event.getName()+'\n'+event.getData().toString());
 		}
 	}
 
 	public void listAllOperation(){
-		EventListResponse response = facade.readAllEvents();
+
+		CommandWithResult<EventListResponse> command = new ListAllEventCommand(this.facade);
+		executor.performOperation(command);
+		EventListResponse exceptions = command.getResult();
+
 		String nomes = "";
 		String exceptionsText = "";
 
-		for(Event event : response.getEvents()){
+		for(Event event : command.getResult().getEvents()){
 			nomes += event.getName() + '\t' + event.getData() +'\n';
 		}
 
-		for(String exception : response.getErrors()){
+		for(String exception : command.getResult().getErrors()){
 			exceptionsText += exception + '\n';
 		}
 
 		JOptionPane.showMessageDialog(null, nomes);
 
-		if(!response.getErrors().isEmpty()){
+		if(!exceptions.getErrors().isEmpty()){
 			JOptionPane.showMessageDialog(null, exceptionsText);
 		}
 	}
@@ -107,13 +123,17 @@ public class EventUI implements IForms{
 	public void delOperation(){
 		String nome = JOptionPane.showInputDialog("Informe o nome do evento");
 
-		String exceptions = "";
-		for (String e: facade.deleteEvent(nome)) {
-			exceptions += e+'\n';
+		CommandWithResult<List<String>> command = new DelEventCommand(this.facade, nome);
+		executor.performOperation(command);
+		List<String> exceptions = command.getResult();
+
+		String exceptionsText = "";
+		for (String e: command.getResult()) {
+			exceptionsText += e+'\n';
 		}
 
 		if(!exceptions.isEmpty())
-			JOptionPane.showMessageDialog(null, exceptions);
+			JOptionPane.showMessageDialog(null, exceptionsText);
 	}
 
 	private void listAllUsersOnEvent() {
