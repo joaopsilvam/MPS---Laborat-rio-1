@@ -155,4 +155,12 @@ public class Facade {
 
         reportManager.saveReport();
     }
+
+    public EventControl.Memento backupEventControl(){
+        return eventControl.backup();
+    }
+
+    public void restoreEventControl(EventControl.Memento backup){
+        eventControl.restore(backup);
+    }
 }

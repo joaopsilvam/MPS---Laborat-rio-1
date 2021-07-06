@@ -7,4 +7,6 @@ public abstract class CommandWithResult<T> implements Command{
     final public T getResult(){
         return result;
     }
+
+    public void undo(){}
 }

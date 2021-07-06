@@ -14,6 +14,8 @@ public class UserUI implements IForms{
 	Facade facade;
 	Executor executor;
 
+	private static Command lastCommand;
+
 	public UserUI(Facade facade, Executor executor){
 		this.facade = facade;
 		this.executor = executor;
@@ -22,7 +24,7 @@ public class UserUI implements IForms{
 	public boolean menu() {
 		String operation = JOptionPane.showInputDialog("Que operação você deseja fazer no sistema?" +
 				"\n[a] Cadastrar usuário\n[b] Verificar um usuário\n[c] Verificar todos os usuários\n" +
-				"[d] Deletar usuário\n[e] Cadastrar usuário em um evento\n[x] Voltar");
+				"[d] Deletar usuário\n[e] Cadastrar usuário em um evento\n[f] Descadastrar último usuário\n[x] Voltar");
 
 		if(operation == null){
 			operation = "x";
@@ -44,6 +46,8 @@ public class UserUI implements IForms{
 			case "e":
 				addUserIntoEvento();
 				break;
+			case "f":
+				if(lastCommand != null) lastCommand.undo();
 			case "x":
 				return false;
 			default:
@@ -135,8 +139,9 @@ public class UserUI implements IForms{
 		String login = JOptionPane.showInputDialog("Informe o login do usuário:");
 		String eventName = JOptionPane.showInputDialog("Informe o nome do evento:");
 
-		CommandWithResult<List<String>> command = new AddUserIntoEventCommand(this.facade, login, eventName);
+		AddUserIntoEventCommand command = new AddUserIntoEventCommand(this.facade, login, eventName);
 		executor.performOperation(command);
+		this.lastCommand = command;
 		List<String> exceptions = command.getResult();
 		String exceptionsText = "";
 		for (String e: command.getResult()) {
