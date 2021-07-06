@@ -49,10 +49,10 @@ public class ManagerSystemUI implements IForms{
         new UserUI(this.facade, this.executor).menu();
     }
     private void sectionEvents() {
-        new EventUI(this.facade).menu();
+        new EventUI(this.facade, this.executor).menu();
     }
     private void sectionDocuments() {
-        new DocumentUI(this.facade).menu();
+        new DocumentUI(this.facade, this.executor).menu();
     }
     private void sectionReports() {
         try {

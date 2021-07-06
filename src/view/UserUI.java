@@ -1,12 +1,10 @@
 package view;
 
 import business.control.Facade;
-import business.control.command.AddUserCommand;
-import business.control.command.Command;
-import business.control.command.CommandWithResult;
-import business.control.command.Executor;
+import business.control.command.*;
 import business.model.responses.UserListResponse;
 import business.model.User;
+import business.model.responses.UserResponse;
 
 import javax.swing.*;
 import java.util.List;
@@ -64,7 +62,6 @@ public class UserUI implements IForms{
 		executor.performOperation(command);
 		List<String> exceptions = command.getResult();
 
-		System.out.println("Operação feita com o Command");
 		String exceptionsText = "";
 
 		for (String e : exceptions) {
@@ -75,54 +72,45 @@ public class UserUI implements IForms{
 			JOptionPane.showMessageDialog(null, exceptionsText);
 	}
 
-//	public void addOperation(){
-//		String login = JOptionPane.showInputDialog("Informe o login do usuário:");
-//		String password = JOptionPane.showInputDialog("Informe a senha do usuário:");
-//		User user = new User(login, password);
-//
-//		List<String> exceptions = facade.addUser(user);
-//		String exceptionsText = "";
-//
-//		for (String e : exceptions) {
-//			exceptionsText += e+'\n';
-//		}
-//
-//		if(!exceptions.isEmpty())
-//			JOptionPane.showMessageDialog(null, exceptionsText);
-//	}
-
 	public void listOneOperation(){
 		String login = JOptionPane.showInputDialog("Informe o login do usuário:");
 
-		String exceptions = "";
-		for (String e: facade.readUser(login).getErrors()) {
-			exceptions += e+'\n';
+		CommandWithResult<UserResponse> command = new ListOneUserCommand(this.facade, login);
+		executor.performOperation(command);
+		UserResponse exceptions = command.getResult();
+
+		String exceptionsText = "";
+		for (String e: exceptions.getErrors()) {
+			exceptionsText += e+'\n';
 		}
-		if(!exceptions.isEmpty()){
+		if(!exceptionsText.isEmpty()){
 			JOptionPane.showMessageDialog(null, exceptions);
 		}
 		else{
-			User user = facade.readUser(login).getUser();
+			User user = command.getResult().getUser();
 			JOptionPane.showMessageDialog(null, user.getLogin()+'\n'+user.getPassword());
 		}
 	}
 
 	public void listAllOperation(){
-		UserListResponse response = facade.readAllUsers();
+		CommandWithResult<UserListResponse> command = new ListAllUserCommand(this.facade);
+		executor.performOperation(command);
+		UserListResponse exceptions = command.getResult();
+
 		String logins = "";
 		String exceptionsText = "";
 
-		for(User user : response.getUsers()){
+		for(User user : command.getResult().getUsers()){
 			logins += user.getLogin() + '\n';
 		}
 
-		for(String exception : response.getErrors()){
+		for(String exception : command.getResult().getErrors()){
 			exceptionsText += exception + '\n';
 		}
 
 		JOptionPane.showMessageDialog(null, logins);
 
-		if(!response.getErrors().isEmpty()){
+		if(!exceptions.getErrors().isEmpty()){
 			JOptionPane.showMessageDialog(null, exceptionsText);
 		}
 	}
@@ -130,23 +118,31 @@ public class UserUI implements IForms{
 	public void delOperation(){
 		String login = JOptionPane.showInputDialog("Informe o login do usuário:");
 
-		String exceptions = "";
-		for (String e: facade.deleteUser(login)) {
-			exceptions += e+'\n';
+		CommandWithResult<List<String>> command = new DelUserCommand(this.facade, login);
+		executor.performOperation(command);
+		List<String> exceptions = command.getResult();
+
+		String exceptionsText = "";
+		for (String e: command.getResult()) {
+			exceptionsText += e+'\n';
 		}
 
 		if(!exceptions.isEmpty())
-			JOptionPane.showMessageDialog(null, exceptions);
+			JOptionPane.showMessageDialog(null, exceptionsText);
 	}
 
 	public void addUserIntoEvento() {
 		String login = JOptionPane.showInputDialog("Informe o login do usuário:");
 		String eventName = JOptionPane.showInputDialog("Informe o nome do evento:");
-		String exceptions = "";
-		for (String e: facade.addUserIntoEvent(login, eventName)) {
-			exceptions += e+'\n';
+
+		CommandWithResult<List<String>> command = new AddUserIntoEventCommand(this.facade, login, eventName);
+		executor.performOperation(command);
+		List<String> exceptions = command.getResult();
+		String exceptionsText = "";
+		for (String e: command.getResult()) {
+			exceptionsText += e+'\n';
 		}
-		if(!exceptions.equals("")) JOptionPane.showMessageDialog(null, exceptions);
+		if(!exceptionsText.equals("")) JOptionPane.showMessageDialog(null, exceptionsText);
 		else JOptionPane.showMessageDialog(null, "O usuário foi cadastrado no evento com sucesso!");
 	}
 

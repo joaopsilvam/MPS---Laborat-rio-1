@@ -8,15 +8,15 @@ import java.util.List;
 
 public class DelUserCommand extends CommandWithResult<List<String>>{
     private final Facade facade;
-    private final User user;
+    private final String login;
 
-    public DelUserCommand(Facade facade, User user){
+    public DelUserCommand(Facade facade, String login){
         this.facade = facade;
-        this.user = user;
+        this.login = login;
     }
 
     @Override
     public void execute() {
-        result = facade.deleteUser(user.getLogin());
+        result = facade.deleteUser(this.login);
     }
 }
