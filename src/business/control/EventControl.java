@@ -8,10 +8,19 @@ import exceptions.InfraException;
 import infra.EventPersistence;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-
 public class EventControl {
+
+    public class Memento{
+
+        private HashMap<String, Event> events;
+
+        public Memento(HashMap<String, Event> events){
+            events = new HashMap<>(events);
+        }
+    }
 
     private HashMap<String, Event> events;
 
@@ -75,6 +84,14 @@ public class EventControl {
         }
 
         return errors;
+    }
+
+    public void restore(EventControl.Memento memento){
+        events = memento.events;
+    }
+
+    public EventControl.Memento backup(){
+        return new EventControl.Memento(events);
     }
 
     private void avaliableEvent(String name) throws EventException {
