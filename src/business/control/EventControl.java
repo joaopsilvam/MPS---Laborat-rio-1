@@ -23,13 +23,7 @@ public class EventControl {
 
             for(String key : events.keySet()){
                 Event event = events.get(key);
-                Event newEvent = new Event();
-                newEvent.setUsers((HashMap<String, User>) event.getUsers().clone());
-                newEvent.setData(event.getData());
-                newEvent.setDescricao(event.getDescricao());
-                newEvent.setName(event.getName());
-
-                this.events.put(key, newEvent);
+                this.events.put(key, event.clonar());
             }
         }
     }
