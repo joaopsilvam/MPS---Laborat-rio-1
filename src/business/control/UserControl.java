@@ -17,12 +17,10 @@ import java.util.List;
 public class UserControl {
 
 	private HashMap<String, User> users;
-	private final List<IUserValidator> validators;
 
 	public UserControl() throws InfraException{
 		UserValidatorFactory userValidatorFactory = new UserValidatorFactory();
 		loadData();
-		this.validators = userValidatorFactory.create();
 	}
 
 	private void loadData() throws InfraException{
@@ -35,6 +33,7 @@ public class UserControl {
 	
 	public List<String> add(User user) {
 		List<String> exceptions = new ArrayList<>();
+		IUserValidator validator = UserValidatorFactory.create();
 
 		try{
 			avaliableUser(user.getLogin());
@@ -43,14 +42,7 @@ public class UserControl {
 			exceptions.add(e.getMessage());
 		}
 
-		for(IUserValidator validator : validators){
-			try{
-				validator.validate(user);
-			}
-			catch(UserException e){
-				exceptions.add(e.getMessage());
-			}
-		}
+		validator.validate(user, exceptions);
 
 		if(exceptions.isEmpty())
 			users.put(user.getLogin(), user);

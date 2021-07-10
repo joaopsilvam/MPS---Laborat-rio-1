@@ -1,6 +1,7 @@
 package business.model;
 
 import java.io.Serializable;
+import java.lang.reflect.Method;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -13,7 +14,14 @@ public class Event implements Serializable {
     public Event(){
         this("", "", new Date());
     }
-    
+
+    public Event(Event event){
+        name = event.name;
+        descricao = event.descricao;
+        data = event.data;
+        users = (HashMap<String, User>) event.users.clone();
+    }
+
     public Event(String name, String descricao, Date data){
         this.name = name;
         this.descricao = descricao;
@@ -58,5 +66,9 @@ public class Event implements Serializable {
 
     public void setData(Date data) {
         this.data = data;
+    }
+
+    public Event clonar(){
+        return new Event(this);
     }
 }

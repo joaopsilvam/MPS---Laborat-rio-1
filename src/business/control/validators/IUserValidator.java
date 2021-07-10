@@ -3,7 +3,11 @@ package business.control.validators;
 import exceptions.UserException;
 import business.model.User;
 
+import java.util.List;
+
 public interface IUserValidator
 {
-	void validate(User user) throws UserException;
+	void validate(User user, List<String> errors);
+
+	void setNextValidator(IUserValidator nextValidator);
 }

@@ -9,12 +9,12 @@ import java.util.ArrayList;
 
 public class UserValidatorFactory {
 
-    public List<IUserValidator> create(){
-        List<IUserValidator> validators = new ArrayList<>();
+    public static IUserValidator create(){
+        IUserValidator validator;
 
-        validators.add(new LoginUserValidator());
-        validators.add(new PasswordUserValidator());
+        validator = new LoginUserValidator();
+        validator.setNextValidator(new PasswordUserValidator());
 
-        return validators;
+        return validator;
     }
 }
