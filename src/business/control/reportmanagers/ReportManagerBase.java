@@ -2,7 +2,7 @@ package business.control.reportmanagers;
 
 import business.control.UserStatisticControl;
 import business.model.UserStatistic;
-import exceptions.InfraException;
+import util.InfraException;
 import infra.IReportPersistence;
 import infra.factories.ReportPersistenceFactory;
 

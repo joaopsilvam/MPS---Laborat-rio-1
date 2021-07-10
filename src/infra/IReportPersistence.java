@@ -1,6 +1,6 @@
 package infra;
 
-import exceptions.InfraException;
+import util.InfraException;
 
 public interface IReportPersistence {
 

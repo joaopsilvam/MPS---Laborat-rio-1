@@ -7,8 +7,8 @@ import business.model.Document;
 import business.model.Event;
 import business.model.User;
 import business.model.responses.*;
-import exceptions.EventException;
-import exceptions.InfraException;
+import util.EventException;
+import util.InfraException;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -1,8 +1,7 @@
 package infra;
 
 import business.model.Event;
-import business.model.User;
-import exceptions.InfraException;
+import util.InfraException;
 
 import java.io.*;
 import java.util.HashMap;

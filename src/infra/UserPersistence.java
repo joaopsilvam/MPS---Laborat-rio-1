@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.HashMap;
 
 import business.model.User;
-import exceptions.InfraException;
+import util.InfraException;
 
 public class UserPersistence{
 

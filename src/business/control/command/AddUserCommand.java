@@ -2,10 +2,7 @@ package business.control.command;
 
 import business.control.Facade;
 import business.model.User;
-import business.model.responses.UserResponse;
-import exceptions.InfraException;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class AddUserCommand extends CommandWithResult<List<String>>{

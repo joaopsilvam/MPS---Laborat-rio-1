@@ -1,7 +1,6 @@
 package business.configuration;
 
-import exceptions.InfraException;
-import org.codehaus.plexus.util.io.FileInputStreamFacade;
+import util.InfraException;
 
 import java.io.FileInputStream;
 import java.io.IOException;
