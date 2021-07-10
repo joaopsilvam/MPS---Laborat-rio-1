@@ -29,7 +29,8 @@ public class DocumentPersistence {
     public static void saveDocuments(HashMap<String, Document> documents, String nomeArquivo) {
         File arquivo = new File(nomeArquivo);
         try {
-            arquivo.delete();
+
+            arquivo.getParentFile().mkdirs();
             arquivo.createNewFile();
 
             ObjectOutputStream objOutput = new ObjectOutputStream(new FileOutputStream(arquivo));

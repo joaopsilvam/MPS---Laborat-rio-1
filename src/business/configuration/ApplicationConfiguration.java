@@ -9,7 +9,7 @@ import java.util.Properties;
 
 public class ApplicationConfiguration {
 
-    private static final String CONFIG_PATH = "app.config";
+    private static final String CONFIG_PATH = "config/app.config";
 
     private static Properties properties = new Properties();
     private static String pdfPersistence = null;

@@ -31,7 +31,7 @@ public class UserStatisticPersistence {
     public static void saveStatistics(List<UserStatistic> statistics, String nomeArquivo) {
         File arquivo = new File(nomeArquivo);
         try {
-            arquivo.delete();
+            arquivo.getParentFile().mkdirs();
             arquivo.createNewFile();
 
             ObjectOutputStream objOutput = new ObjectOutputStream(new FileOutputStream(arquivo));

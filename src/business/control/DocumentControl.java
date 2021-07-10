@@ -6,6 +6,7 @@ import business.model.responses.DocumentResponse;
 import exceptions.DocumentException;
 import exceptions.InfraException;
 import infra.DocumentPersistence;
+import infra.Paths;
 
 import javax.print.Doc;
 import java.util.ArrayList;
@@ -22,11 +23,11 @@ public class DocumentControl {
     }
 
     private void loadData() throws InfraException {
-        documents = DocumentPersistence.loadDocuments("documents.dat");
+        documents = DocumentPersistence.loadDocuments(Paths.DOCUMENTS_PATH);
     }
 
     public void saveData(){
-        DocumentPersistence.saveDocuments(documents, "documents.dat");
+        DocumentPersistence.saveDocuments(documents, Paths.DOCUMENTS_PATH);
     }
 
     public List<String> add(Document data){

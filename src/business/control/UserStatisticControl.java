@@ -3,14 +3,13 @@ package business.control;
 import business.model.User;
 import business.model.UserStatistic;
 import exceptions.InfraException;
+import infra.Paths;
 import infra.UserStatisticPersistence;
 
 import java.util.Date;
 import java.util.List;
 
 public class UserStatisticControl {
-
-    private static final String REPORT_CACHE_FILE = "report_cache.dat";
 
     private List<UserStatistic> statistics;
 
@@ -19,11 +18,11 @@ public class UserStatisticControl {
     }
 
     private List<UserStatistic> loadFile() throws InfraException {
-        return UserStatisticPersistence.loadStatistics(REPORT_CACHE_FILE);
+        return UserStatisticPersistence.loadStatistics(Paths.REPORT_PATH);
     }
 
     public void saveData(){
-        UserStatisticPersistence.saveStatistics(statistics, REPORT_CACHE_FILE);
+        UserStatisticPersistence.saveStatistics(statistics, Paths.REPORT_PATH);
     }
 
     public void registerLoginStatistic(User user){

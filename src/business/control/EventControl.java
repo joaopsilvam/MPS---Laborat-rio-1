@@ -7,6 +7,7 @@ import business.model.responses.EventResponse;
 import exceptions.EventException;
 import exceptions.InfraException;
 import infra.EventPersistence;
+import infra.Paths;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -36,11 +37,11 @@ public class EventControl {
     }
 
     private void loadData() throws InfraException {
-        events = EventPersistence.loadEvents("events.dat");
+        events = EventPersistence.loadEvents(Paths.EVENTS_PATH);
     }
 
     public void saveData(){
-        EventPersistence.saveEvents(events, "events.dat");
+        EventPersistence.saveEvents(events, Paths.EVENTS_PATH);
     }
 
     public List<String> add(Event event){

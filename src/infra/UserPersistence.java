@@ -30,7 +30,8 @@ public class UserPersistence{
 	public static void saveUsers(HashMap<String, User> users, String nomeArquivo) {
 		File arquivo = new File(nomeArquivo);
 		try {
-			arquivo.delete();
+
+			arquivo.getParentFile().mkdirs();
 			arquivo.createNewFile();
 
 			ObjectOutputStream objOutput = new ObjectOutputStream(new FileOutputStream(arquivo));

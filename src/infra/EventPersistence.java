@@ -30,7 +30,8 @@ public class EventPersistence {
     public static void saveEvents(HashMap<String, Event> events, String nomeArquivo) {
         File arquivo = new File(nomeArquivo);
         try {
-            arquivo.delete();
+
+            arquivo.getParentFile().mkdirs();
             arquivo.createNewFile();
 
             ObjectOutputStream objOutput = new ObjectOutputStream(new FileOutputStream(arquivo));

@@ -7,6 +7,7 @@ import business.model.User;
 import business.model.responses.UserResponse;
 import exceptions.InfraException;
 import exceptions.UserException;
+import infra.Paths;
 import infra.UserPersistence;
 
 import java.util.ArrayList;
@@ -19,16 +20,15 @@ public class UserControl {
 	private HashMap<String, User> users;
 
 	public UserControl() throws InfraException{
-		UserValidatorFactory userValidatorFactory = new UserValidatorFactory();
 		loadData();
 	}
 
 	private void loadData() throws InfraException{
-		this.users = UserPersistence.loadUsers("usuarios.dat");
+		this.users = UserPersistence.loadUsers(Paths.USERS_PATH);
 	}
 
 	public void saveData(){
-		UserPersistence.saveUsers(this.users, "usuarios.dat");
+		UserPersistence.saveUsers(this.users, Paths.USERS_PATH);
 	}
 	
 	public List<String> add(User user) {
