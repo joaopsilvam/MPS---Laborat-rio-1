@@ -1,11 +1,13 @@
 package business.control.validators;
 
+import exceptions.UserException;
 import exceptions.UserLoginException;
 import business.model.User;
 
+import java.util.List;
 import java.util.regex.Pattern;
 
-public class LoginUserValidator implements IUserValidator {
+public class LoginUserValidator extends UserValidatorBase {
 
 	private Pattern containsNumberRegex;
 
@@ -13,15 +15,17 @@ public class LoginUserValidator implements IUserValidator {
 		containsNumberRegex = Pattern.compile(".*\\d.*");
 	}
 
-	public void validate(User user) throws UserLoginException
+	public void validate(User user, List<String> errors)
 	{
 		String value = user.getLogin();
 		boolean containsNumber = containsNumberRegex.matcher(value).matches();
 		boolean sizeInvalid = value.isEmpty() || value.length() > 12;
 
 		if(containsNumber || sizeInvalid){//condição de senha inválida
-			throw new UserLoginException(createErrorMessage(sizeInvalid, containsNumber));
+			errors.add(createErrorMessage(sizeInvalid, containsNumber));
 		}
+
+		super.validate(user, errors);
 	}
 
 	private String createErrorMessage(boolean sizeInvalid, boolean formatInvalid){

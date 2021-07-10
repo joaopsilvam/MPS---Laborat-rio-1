@@ -3,9 +3,10 @@ package business.control.validators;
 import exceptions.UserPasswordException;
 import business.model.User;
 
+import java.util.List;
 import java.util.regex.Pattern;
 
-public class PasswordUserValidator implements IUserValidator {
+public class PasswordUserValidator extends UserValidatorBase{
 
 	private Pattern containsTwoNumbersPattern;//padrão para ao menos 2 números
 	private Pattern containsWordCharPattern;//padrão para letras
@@ -15,7 +16,7 @@ public class PasswordUserValidator implements IUserValidator {
 		containsWordCharPattern = Pattern.compile(".*[a-zA-Z].*");
 	}
 
-	public void validate(User user) throws UserPasswordException
+	public void validate(User user, List<String> errors)
 	{
 		String value = user.getPassword();
 		boolean containsWordChar = containsWordCharPattern.matcher(value).matches();
@@ -24,8 +25,10 @@ public class PasswordUserValidator implements IUserValidator {
 		boolean sizeInvalid = value.length() < 8 || value.length() > 20;
 
 		if(sizeInvalid || !formatValid){//condição de senha inválida
-			throw new UserPasswordException(createErrorMessage(sizeInvalid, !formatValid));
+			errors.add(createErrorMessage(sizeInvalid, !formatValid));
 		}
+
+		super.validate(user, errors);
 	}
 
 	private String createErrorMessage(boolean sizeInvalid, boolean formatInvalid){
