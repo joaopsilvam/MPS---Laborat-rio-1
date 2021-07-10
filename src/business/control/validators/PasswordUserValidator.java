@@ -1,6 +1,5 @@
 package business.control.validators;
 
-import exceptions.UserPasswordException;
 import business.model.User;
 
 import java.util.List;

@@ -2,13 +2,11 @@ package infra;
 
 import java.io.*;
 
-import business.control.UserStatisticControl;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.pdf.PdfDocument;
 import com.itextpdf.text.pdf.PdfWriter;
-import exceptions.InfraException;
+import util.InfraException;
 
 
 public class ReportPDFPersistence implements IReportPersistence{

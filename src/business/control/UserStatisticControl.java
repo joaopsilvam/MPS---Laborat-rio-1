@@ -2,7 +2,7 @@ package business.control;
 
 import business.model.User;
 import business.model.UserStatistic;
-import exceptions.InfraException;
+import util.InfraException;
 import infra.Paths;
 import infra.UserStatisticPersistence;
 

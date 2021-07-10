@@ -1,16 +1,14 @@
 package business.control;
 
 import business.model.Event;
-import business.model.User;
 import business.model.responses.EventListResponse;
 import business.model.responses.EventResponse;
-import exceptions.EventException;
-import exceptions.InfraException;
+import util.EventException;
+import util.InfraException;
 import infra.EventPersistence;
 import infra.Paths;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 public class EventControl {

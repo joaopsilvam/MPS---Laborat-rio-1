@@ -5,13 +5,12 @@ import business.control.validators.IUserValidator;
 import business.model.responses.UserListResponse;
 import business.model.User;
 import business.model.responses.UserResponse;
-import exceptions.InfraException;
-import exceptions.UserException;
+import util.InfraException;
+import util.UserException;
 import infra.Paths;
 import infra.UserPersistence;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 

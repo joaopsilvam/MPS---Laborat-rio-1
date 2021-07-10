@@ -1,7 +1,7 @@
 package infra;
 
 import business.model.Document;
-import exceptions.InfraException;
+import util.InfraException;
 
 import java.io.*;
 import java.util.HashMap;

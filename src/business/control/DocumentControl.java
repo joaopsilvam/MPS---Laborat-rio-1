@@ -3,12 +3,11 @@ package business.control;
 import business.model.Document;
 import business.model.responses.DocumentListReponse;
 import business.model.responses.DocumentResponse;
-import exceptions.DocumentException;
-import exceptions.InfraException;
+import util.DocumentException;
+import util.InfraException;
 import infra.DocumentPersistence;
 import infra.Paths;
 
-import javax.print.Doc;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

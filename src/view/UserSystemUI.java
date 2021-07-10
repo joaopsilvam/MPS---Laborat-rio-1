@@ -2,7 +2,7 @@ package view;
 
 import business.control.Facade;
 import business.model.User;
-import exceptions.InfraException;
+import util.InfraException;
 
 import javax.swing.*;
 
