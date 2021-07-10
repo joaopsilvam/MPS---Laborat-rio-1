@@ -102,7 +102,7 @@ public class DocumentUI implements IForms{
         String exceptionsText = "";
 
         for(Document document : command.getResult().getDocuments()){
-            nomes += document.getName() + '\t' + document.getData() +'\n';
+            nomes += document.getName() + " - " + document.getData() +'\n';
         }
 
         for(String exception : command.getResult().getErrors()){

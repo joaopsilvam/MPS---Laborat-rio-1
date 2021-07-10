@@ -106,7 +106,7 @@ public class EventUI implements IForms{
 		String exceptionsText = "";
 
 		for(Event event : command.getResult().getEvents()){
-			nomes += event.getName() + '\t' + event.getData() +'\n';
+			nomes += event.getName() + " - " + event.getData() +'\n';
 		}
 
 		for(String exception : command.getResult().getErrors()){
