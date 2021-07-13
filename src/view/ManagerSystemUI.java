@@ -17,7 +17,7 @@ public class ManagerSystemUI implements IForms{
 
     public boolean menu(){
         String operation = JOptionPane.showInputDialog("Com o quê você deseja trabalhar?" +
-                "\n[a] Usuários\n[b] Eventos\n[c] Documentos\n[d] Relatórios\n[x] Sair");
+                "\n[a] Usuários\n[b] Eventos\n[c] Documentos\n[d] Relatórios\n[e] Notícias\n[x] Sair");
 
         if(operation == null){
             operation = "x";
@@ -36,6 +36,9 @@ public class ManagerSystemUI implements IForms{
             case "d":
                 sectionReports();
                 break;
+            case "e":
+                sectionPosts();
+                break;
             case "x":
                 return false;
             default:
@@ -50,6 +53,9 @@ public class ManagerSystemUI implements IForms{
     }
     private void sectionEvents() {
         new EventUI(this.facade, this.executor).menu();
+    }
+    private void sectionPosts() {
+        new PostUI(this.facade, this.executor).menu();
     }
     private void sectionDocuments() {
         new DocumentUI(this.facade, this.executor).menu();

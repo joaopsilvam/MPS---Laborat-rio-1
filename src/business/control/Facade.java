@@ -5,9 +5,11 @@ import business.control.factories.ReportManagerFactory;
 import business.control.reportmanagers.ReportManagerBase;
 import business.model.Document;
 import business.model.Event;
+import business.model.Post;
 import business.model.User;
 import business.model.responses.*;
 import util.EventException;
+import util.PostException;
 import util.InfraException;
 
 import java.util.ArrayList;
@@ -29,6 +31,7 @@ public class Facade {
     private UserControl userControl;
     private DocumentControl documentControl;
     private EventControl eventControl;
+    private PostControl postControl;
     private UserStatisticControl userStatisticControl;
 
     private Facade() throws InfraException{
@@ -37,6 +40,7 @@ public class Facade {
         this.userControl = new UserControl();
         this.documentControl = new DocumentControl();
         this.eventControl = new EventControl();
+        this.postControl = new PostControl();
         this.userStatisticControl = new UserStatisticControl();
     }
 
@@ -44,6 +48,7 @@ public class Facade {
         this.userControl.saveData();
         this.documentControl.saveData();
         this.eventControl.saveData();
+        this.postControl.saveDate();
         this.userStatisticControl.saveData();
     }
 
@@ -125,6 +130,22 @@ public class Facade {
 
     public List<String> deleteEvent(String name) {
         return this.eventControl.delete(name);
+    }
+
+    public List<String> addPost(Post post) {
+        return this.postControl.add(post);
+    }
+
+    public PostResponse readPost(String titulo) {
+        return this.postControl.read(titulo);
+    }
+
+    public PostListResponse readAllPosts() {
+        return this.postControl.readAll();
+    }
+
+    public List<String> deletePost(String titulo) {
+        return this.postControl.delete(titulo);
     }
 
     public UserListResponse listAllUsersOnEvent(String nameEvent) {
