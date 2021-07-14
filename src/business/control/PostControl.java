@@ -1,11 +1,11 @@
 package business.control;
 
-import business.model.Post;
-import business.model.responses.PostListResponse;
-import business.model.responses.PostResponse;
+import business.model.INews;
+import business.model.responses.NewsListResponse;
+import business.model.responses.NewsResponse;
 import util.PostException;
 import util.InfraException;
-import infra.PostPersistence;
+import infra.NewsPersistence;
 import infra.Paths;
 
 import java.util.ArrayList;
@@ -15,19 +15,19 @@ public class PostControl {
 
     public class Memento{
 
-        private final HashMap<String, Post> posts;
+        private final HashMap<String, INews> posts;
 
-        public Memento(HashMap<String, Post> posts){
+        public Memento(HashMap<String, INews> posts){
             this.posts = new HashMap<>();
 
             for(String key : posts.keySet()){
-                Post post = posts.get(key);
-                this.posts.put(key, post.copy());
+                INews INews = posts.get(key);
+                this.posts.put(key, INews.copy());
             }
         }
     }
 
-    private HashMap<String, Post> posts;
+    private HashMap<String, INews> posts;
 
     public PostControl() throws InfraException{
         posts = new HashMap<>();
@@ -35,47 +35,47 @@ public class PostControl {
     }
 
     private void loadData() throws InfraException {
-        posts = PostPersistence.loadPosts(Paths.POSTS_PATH);
+        posts = NewsPersistence.loadPosts(Paths.POSTS_PATH);
     }
 
     public void saveData(){
-        PostPersistence.savePosts(posts, Paths.POSTS_PATH);
+        NewsPersistence.savePosts(posts, Paths.POSTS_PATH);
     }
 
-    public List<String> add(Post post){
+    public List<String> add(INews INews){
         List<String> errors = new ArrayList<>();
         try{
-            avaliablePost(post.getTitulo());
-            posts.put(post.getTitulo(), post);
+            avaliablePost(INews.getTitle());
+            posts.put(INews.getTitle(), INews);
         }catch(PostException e){
             errors.add(e.getMessage());
         }
         return errors;
     }
 
-    public PostResponse read(String titulo){
+    public NewsResponse read(String titulo){
         List<String> errors = new ArrayList<>();
-        Post post = null;
+        INews INews = null;
 
         try{
             hasPost(titulo);
-            post = posts.get(titulo);
+            INews = posts.get(titulo);
         }catch (PostException e){
             errors.add(e.getMessage());
         }
 
-        return new PostResponse(post, errors);
+        return new NewsResponse(INews, errors);
     }
 
-    public PostListResponse readAll(){
+    public NewsListResponse readAll(){
         List<String> errors = new ArrayList<>();
-        List<Post> posts = new ArrayList<>();
+        List<INews> news = new ArrayList<>();
 
-        for(Post post : this.posts.values()){
-            posts.add(post);
+        for(INews _new : this.posts.values()){
+            news.add(_new);
         }
 
-        return new PostListResponse(posts, errors);
+        return new NewsListResponse(news, errors);
     }
 
     public List<String> delete(String titulo){

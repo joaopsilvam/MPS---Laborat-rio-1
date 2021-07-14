@@ -1,13 +1,13 @@
 package business.control.command;
 
 import business.control.Facade;
-import business.model.responses.PostResponse;
+import business.model.responses.NewsResponse;
 
-public class ListOnePostCommand extends CommandWithResult<PostResponse>{
+public class ListOneNewsCommand extends CommandWithResult<NewsResponse>{
     private final Facade facade;
     private final String titulo;
 
-    public ListOnePostCommand(Facade facade, String titulo){
+    public ListOneNewsCommand(Facade facade, String titulo){
         this.facade = facade;
         this.titulo = titulo;
     }

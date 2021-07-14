@@ -4,11 +4,11 @@ import business.control.Facade;
 
 import java.util.List;
 
-public class DelPostCommand extends CommandWithResult<List<String>>{
+public class DelNewsCommand extends CommandWithResult<List<String>>{
     private final Facade facade;
     private final String titulo;
 
-    public DelPostCommand(Facade facade, String titulo){
+    public DelNewsCommand(Facade facade, String titulo){
         this.facade = facade;
         this.titulo = titulo;
     }

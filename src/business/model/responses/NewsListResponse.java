@@ -4,12 +4,12 @@ import business.model.INews;
 
 import java.util.List;
 
-public class PostListResponse {
+public class NewsListResponse {
 
     private List<INews> INews;
     private List<String> errors;
 
-    public PostListResponse(List<INews> INews, List<String> errors){
+    public NewsListResponse(List<INews> INews, List<String> errors){
         this.INews = INews;
         this.errors = errors;
     }

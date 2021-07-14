@@ -2,23 +2,22 @@ package view;
 
 import business.control.Facade;
 import business.control.command.*;
-import business.model.Post;
-import business.model.User;
-import business.model.responses.PostListResponse;
-import business.model.responses.PostResponse;
-import business.model.responses.UserListResponse;
-import business.model.responses.UserResponse;
+import business.model.INews;
+import business.model.news.EditalNews;
+import business.model.news.SelectiveProcessNews;
+import business.model.responses.NewsListResponse;
+import business.model.responses.NewsResponse;
 
 import javax.swing.*;
 import java.util.Date;
 import java.util.List;
 
-public class PostUI implements IForms{
+public class NewsUI implements IForms{
 
     Facade facade;
 	Executor executor;
 
-    public PostUI(Facade facade, Executor executor){
+    public NewsUI(Facade facade, Executor executor){
         this.facade = facade;
 		this.executor = executor;
 	}
@@ -55,11 +54,28 @@ public class PostUI implements IForms{
     }
 
 	public void addOperation(){
-		String nome = JOptionPane.showInputDialog("Informe o titulo da noticia");
-		String descricao = JOptionPane.showInputDialog("Informe a descricao da noticia");
-		Post event = new Post(nome, descricao, new Date());
 
-		CommandWithResult<List<String>> command = new AddPostCommand(this.facade, event);
+		String title = JOptionPane.showInputDialog("Informe o titulo da noticia");
+		String description = JOptionPane.showInputDialog("Informe a descricao da noticia");
+		INews news = null;
+
+		while(news == null) {
+			String newsType = JOptionPane.showInputDialog("Sobre o quê você deseja publicar?" +
+					"\n[a] Movimentação de editais\n[b] Andamento de processos seletivos");
+			switch (newsType) {
+				case "a":
+					String linkEdital = JOptionPane.showInputDialog("Qual o link do site em que está publicado o edital?");
+					news = new EditalNews(title, description, new Date(), linkEdital);
+					break;
+				case "b":
+					news = new SelectiveProcessNews(title, description, new Date());
+					break;
+				default:
+					JOptionPane.showMessageDialog(null, "Informe um tipo de publicação válida.");
+			}
+		}
+
+		CommandWithResult<List<String>> command = new AddNewsCommand(this.facade, news);
 		executor.performOperation(command);
 		List<String> exceptions = command.getResult();
 
@@ -74,11 +90,11 @@ public class PostUI implements IForms{
 	}
 
 	public void listOneOperation(){
-		String nome = JOptionPane.showInputDialog("Informe o titulo da noticia");
+		String title = JOptionPane.showInputDialog("Informe o titulo da notícia");
 
-		CommandWithResult<PostResponse> command = new ListOnePostCommand(this.facade, nome);
+		CommandWithResult<NewsResponse> command = new ListOneNewsCommand(this.facade, title);
 		executor.performOperation(command);
-		PostResponse exceptions = command.getResult();
+		NewsResponse exceptions = command.getResult();
 
 		String exceptionsText = "";
 		for (String e: exceptions.getErrors()) {
@@ -88,22 +104,22 @@ public class PostUI implements IForms{
 			JOptionPane.showMessageDialog(null, exceptions);
 		}
 		else{
-			Post event = command.getResult().getPost();
-			JOptionPane.showMessageDialog(null, event.getTitulo()+'\n'+event.getData().toString());
+			INews event = command.getResult().getPost();
+			JOptionPane.showMessageDialog(null, event.getTitle()+'\n'+event.getDate().toString());
 		}
 	}
 
 	public void listAllOperation(){
 
-		CommandWithResult<PostListResponse> command = new ListAllPostCommand(this.facade);
+		CommandWithResult<NewsListResponse> command = new ListAllNewsCommand(this.facade);
 		executor.performOperation(command);
-		PostListResponse exceptions = command.getResult();
+		NewsListResponse exceptions = command.getResult();
 
 		String nomes = "";
 		String exceptionsText = "";
 
-		for(Post post : command.getResult().getPosts()){
-			nomes += post.getTitulo() + " - " + post.getData() +'\n';
+		for(INews news : command.getResult().getPosts()){
+			nomes += news.getDetails() +'\n';
 		}
 
 		for(String exception : command.getResult().getErrors()){
@@ -120,7 +136,7 @@ public class PostUI implements IForms{
 	public void delOperation(){
 		String nome = JOptionPane.showInputDialog("Informe o titulo da noticia");
 
-		CommandWithResult<List<String>> command = new DelPostCommand(this.facade, nome);
+		CommandWithResult<List<String>> command = new DelNewsCommand(this.facade, nome);
 		executor.performOperation(command);
 		List<String> exceptions = command.getResult();
 

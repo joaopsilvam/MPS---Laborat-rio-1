@@ -5,12 +5,12 @@ import business.model.INews;
 
 import java.util.List;
 
-public class AddPostCommand extends CommandWithResult<List<String>>{
+public class AddNewsCommand extends CommandWithResult<List<String>>{
 
     private final Facade facade;
     private final INews INews;
 
-    public AddPostCommand(Facade facade, INews INews){
+    public AddNewsCommand(Facade facade, INews INews){
         this.facade = facade;
         this.INews = INews;
     }
