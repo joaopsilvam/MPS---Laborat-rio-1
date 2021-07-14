@@ -3,8 +3,8 @@ package business.control;
 import business.configuration.ApplicationConfiguration;
 import business.control.factories.ReportManagerFactory;
 import business.control.reportmanagers.ReportManagerBase;
-import business.model.Document;
 import business.model.Event;
+import business.model.IDocument;
 import business.model.User;
 import business.model.responses.*;
 import util.EventException;
@@ -97,7 +97,7 @@ public class Facade {
         return this.userControl.delete(login);
     }
 
-    public List<String> addDocument(Document data) {
+    public List<String> addDocument(IDocument data) {
         return this.documentControl.add(data);
     }
 
