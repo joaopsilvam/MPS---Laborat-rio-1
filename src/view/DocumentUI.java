@@ -5,8 +5,6 @@ import business.control.command.*;
 import business.model.*;
 import business.model.responses.DocumentListReponse;
 import business.model.responses.DocumentResponse;
-import business.model.responses.EventListResponse;
-import business.model.responses.EventResponse;
 
 import javax.swing.*;
 import java.util.Date;
@@ -66,7 +64,7 @@ public class DocumentUI implements IForms{
                     document = new EditalDocument(content, name, new Date());
                     break;
                 case "b":
-                    document = new ResourceForm(content, name, new Date());
+                    document = new ResourceFormDocument(content, name, new Date());
                     break;
                 default:
                     JOptionPane.showMessageDialog(null, "O tipo de documento informado não existe no sistema.");

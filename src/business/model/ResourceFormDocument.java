@@ -4,21 +4,21 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Random;
 
-public class ResourceForm implements IDocument, Serializable {
+public class ResourceFormDocument implements IDocument, Serializable {
 
     private String data;
     private String name;
     private Date postDate;
     private String processCode;
 
-    public ResourceForm(String data, String name, Date date){
+    public ResourceFormDocument(String data, String name, Date date){
         this.data = data;
         this.name = name;
-        this.data = data;
+        this.postDate = date;
         this.processCode = "PC - "+ new Random().nextDouble();
     }
 
-    public ResourceForm() {
+    public ResourceFormDocument() {
         this("", "", new Date());
     }
 

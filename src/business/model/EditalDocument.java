@@ -13,7 +13,7 @@ public class EditalDocument implements IDocument, Serializable {
     public EditalDocument(String data, String name, Date date){
         this.data = data;
         this.name = name;
-        this.data = data;
+        this.postDate = date;
         this.situation = Situation.PUBLISHED;
     }
 
