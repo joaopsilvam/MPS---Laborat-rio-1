@@ -1,23 +1,22 @@
 package business.control.command;
 
 import business.control.Facade;
-import business.model.Post;
-import business.model.User;
+import business.model.INews;
 
 import java.util.List;
 
 public class AddPostCommand extends CommandWithResult<List<String>>{
 
     private final Facade facade;
-    private final Post post;
+    private final INews INews;
 
-    public AddPostCommand(Facade facade, Post post){
+    public AddPostCommand(Facade facade, INews INews){
         this.facade = facade;
-        this.post = post;
+        this.INews = INews;
     }
 
     @Override
     public void execute() {
-        result = facade.addPost(post);
+        result = facade.addPost(INews);
     }
 }

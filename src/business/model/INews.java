@@ -1,26 +1,24 @@
 package business.model;
 
 import java.io.Serializable;
-import java.lang.reflect.Method;
 import java.util.Date;
-import java.util.HashMap;
 
-public class Post implements Serializable {
+public class News implements Serializable {
     private String titulo;
     private String descricao;
     private Date data;
 
-    public Post(){
+    public News(){
         this("", "", new Date());
     }
 
-    public Post(Post post){
-        titulo = post.titulo;
-        descricao = post.descricao;
-        data = post.data;
+    public News(News news){
+        titulo = news.titulo;
+        descricao = news.descricao;
+        data = news.data;
     }
 
-    public Post(String titulo, String descricao, Date data){
+    public News(String titulo, String descricao, Date data){
         this.titulo = titulo;
         this.descricao = descricao;
         this.data = data;
@@ -50,7 +48,7 @@ public class Post implements Serializable {
         this.data = data;
     }
 
-    public Post copy(){
-        return new Post(this);
+    public News copy(){
+        return new News(this);
     }
 }

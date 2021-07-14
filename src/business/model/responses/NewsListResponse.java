@@ -1,21 +1,21 @@
 package business.model.responses;
 
-import business.model.Post;
+import business.model.INews;
 
 import java.util.List;
 
 public class PostListResponse {
 
-    private List<Post> posts;
+    private List<INews> INews;
     private List<String> errors;
 
-    public PostListResponse(List<Post> posts, List<String> errors){
-        this.posts = posts;
+    public PostListResponse(List<INews> INews, List<String> errors){
+        this.INews = INews;
         this.errors = errors;
     }
 
-    public List<Post> getPosts() {
-        return posts;
+    public List<INews> getPosts() {
+        return INews;
     }
 
     public List<String> getErrors() {
