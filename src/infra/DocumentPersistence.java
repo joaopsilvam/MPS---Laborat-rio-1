@@ -1,20 +1,20 @@
 package infra;
 
-import business.model.Document;
+import business.model.IDocument;
 import util.InfraException;
 
 import java.io.*;
 import java.util.HashMap;
 
 public class DocumentPersistence {
-    public static HashMap<String, Document> loadDocuments(String nomeArquivo) throws InfraException {
+    public static HashMap<String, IDocument> loadDocuments(String nomeArquivo) throws InfraException {
 
-        HashMap<String, Document> documents = new HashMap<String, Document>();
+        HashMap<String, IDocument> documents = new HashMap<String, IDocument>();
         try {
             File arquivo = new File(nomeArquivo);
             if (arquivo.exists()) {
                 ObjectInputStream objInput = new ObjectInputStream(new FileInputStream(arquivo));
-                documents = (HashMap<String, Document>)objInput.readObject();
+                documents = (HashMap<String, IDocument>)objInput.readObject();
                 objInput.close();
             }
         } catch(IOException erro1) {
@@ -26,7 +26,7 @@ public class DocumentPersistence {
         return(documents);
     }
 
-    public static void saveDocuments(HashMap<String, Document> documents, String nomeArquivo) {
+    public static void saveDocuments(HashMap<String, IDocument> documents, String nomeArquivo) {
         File arquivo = new File(nomeArquivo);
         try {
 

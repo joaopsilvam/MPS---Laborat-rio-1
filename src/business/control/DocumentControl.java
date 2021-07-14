@@ -1,6 +1,6 @@
 package business.control;
 
-import business.model.Document;
+import business.model.IDocument;
 import business.model.responses.DocumentListReponse;
 import business.model.responses.DocumentResponse;
 import util.DocumentException;
@@ -14,7 +14,7 @@ import java.util.List;
 
 public class DocumentControl {
 
-    private HashMap<String, Document> documents;
+    private HashMap<String, IDocument> documents;
 
     public DocumentControl() throws InfraException{
         documents = new HashMap<>();
@@ -29,7 +29,7 @@ public class DocumentControl {
         DocumentPersistence.saveDocuments(documents, Paths.DOCUMENTS_PATH);
     }
 
-    public List<String> add(Document data){
+    public List<String> add(IDocument data){
 
         List<String> errors = new ArrayList<>();
 
@@ -45,7 +45,7 @@ public class DocumentControl {
     }
 
     public DocumentResponse read(String name){
-        Document document = null;
+        IDocument document = null;
         List<String> errors = new ArrayList<>();
 
         try{
@@ -60,9 +60,9 @@ public class DocumentControl {
     }
 
     public DocumentListReponse readAll(){
-        List<Document> documents = new ArrayList<>();
+        List<IDocument> documents = new ArrayList<>();
 
-        for(Document document : this.documents.values()){
+        for(IDocument document : this.documents.values()){
             documents.add(document);
         }
 

@@ -1,16 +1,16 @@
 package business.control.command;
 
 import business.control.Facade;
-import business.model.Document;
+import business.model.IDocument;
 
 import java.util.List;
 
 public class AddDocumentCommand extends CommandWithResult<List<String>>{
 
     private final Facade facade;
-    private final Document document;
+    private final IDocument document;
 
-    public AddDocumentCommand(Facade facade, Document document){
+    public AddDocumentCommand(Facade facade, IDocument document){
         this.facade = facade;
         this.document = document;
     }
