@@ -3,6 +3,8 @@ package view;
 import business.control.Facade;
 import business.control.command.*;
 import business.model.*;
+import business.model.documents.EditalDocument;
+import business.model.documents.ResourceFormDocument;
 import business.model.responses.DocumentListReponse;
 import business.model.responses.DocumentResponse;
 

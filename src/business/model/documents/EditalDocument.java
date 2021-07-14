@@ -1,4 +1,7 @@
-package business.model;
+package business.model.documents;
+
+import business.model.IDocument;
+import business.model.enums.Situation;
 
 import java.io.Serializable;
 import java.util.Date;

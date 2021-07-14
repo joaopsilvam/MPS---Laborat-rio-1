@@ -1,4 +1,7 @@
-package business.model;
+package business.model.events;
+
+import business.model.IEvent;
+import business.model.User;
 
 import java.util.Date;
 import java.util.HashMap;

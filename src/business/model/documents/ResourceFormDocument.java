@@ -1,4 +1,6 @@
-package business.model;
+package business.model.documents;
+
+import business.model.IDocument;
 
 import java.io.Serializable;
 import java.util.Date;
