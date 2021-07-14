@@ -1,17 +1,16 @@
 package business.control.command;
 
 import business.control.Facade;
-import business.model.Event;
-import business.model.User;
+import business.model.IEvent;
 
 import java.util.List;
 
 public class AddEventCommand extends CommandWithResult<List<String>>{
 
     private final Facade facade;
-    private final Event event;
+    private final IEvent event;
 
-    public AddEventCommand(Facade facade, Event event){
+    public AddEventCommand(Facade facade, IEvent event){
         this.facade = facade;
         this.event = event;
     }

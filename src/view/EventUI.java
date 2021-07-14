@@ -2,15 +2,17 @@ package view;
 
 import business.control.Facade;
 import business.control.command.*;
-import business.model.Event;
+import business.model.IEvent;
+import business.model.OnlineEvent;
+import business.model.PresentialEvent;
 import business.model.User;
 import business.model.responses.EventListResponse;
 import business.model.responses.EventResponse;
 import business.model.responses.UserListResponse;
-import business.model.responses.UserResponse;
 
 import javax.swing.*;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 public class EventUI implements IForms{
@@ -25,8 +27,8 @@ public class EventUI implements IForms{
 
     public boolean menu() {
         String operation = JOptionPane.showInputDialog("Que operação você deseja fazer no sistema?" +
-                "\n[a] Publicar evento\n[b] Verificar um evento\n[c] Verificar todos os eventos\n" +
-                "[d] Apagar evento\n[e] Verificar usuários inscritos em um evento\n[x] Voltar");
+                "\n[a] Publicar evento presencial\n[b] Publicar evento online\n[c] Verificar um evento\n[d] Verificar todos os eventos\n" +
+                "[e] Apagar evento\n[f] Verificar usuários inscritos em um evento\n[x] Voltar");
 
 		if(operation == null){
 			operation = "x";
@@ -34,18 +36,21 @@ public class EventUI implements IForms{
 
 		switch (operation) {
 		case "a":
-			addOperation();
+			addPresentialOperation();
 			break;
 		case "b":
-			listOneOperation();
+			addOnlineOperation();
 			break;
 		case "c":
-			listAllOperation();
+			listOneOperation();
 			break;
 		case "d":
-			delOperation();
+			listAllOperation();
 			break;
 		case "e":
+			delOperation();
+			break;
+		case "f":
 			listAllUsersOnEvent();
 			break;
 		case "x":
@@ -57,10 +62,31 @@ public class EventUI implements IForms{
         return true;
     }
 
-	public void addOperation(){
+	public void addOnlineOperation(){
 		String nome = JOptionPane.showInputDialog("Informe o nome do evento");
 		String descricao = JOptionPane.showInputDialog("Informe a descricao do evento");
-		Event event = new Event(nome, descricao, new Date());
+		String link = JOptionPane.showInputDialog("Informe o link do evento");
+		IEvent event = new OnlineEvent(nome, descricao, new Date(), new HashMap<>(), link);
+
+		CommandWithResult<List<String>> command = new AddEventCommand(this.facade, event);
+		executor.performOperation(command);
+		List<String> exceptions = command.getResult();
+
+		String exceptionsText = "";
+
+		for (String e : exceptions) {
+			exceptionsText += e+'\n';
+		}
+
+		if(!exceptions.isEmpty())
+			JOptionPane.showMessageDialog(null, exceptionsText);
+	}
+
+	public void addPresentialOperation(){
+		String nome = JOptionPane.showInputDialog("Informe o nome do evento");
+		String descricao = JOptionPane.showInputDialog("Informe a descricao do evento");
+		String local = JOptionPane.showInputDialog("Informe o local do evento");
+		IEvent event = new PresentialEvent(nome, descricao, new Date(), new HashMap<>(), local);
 
 		CommandWithResult<List<String>> command = new AddEventCommand(this.facade, event);
 		executor.performOperation(command);
@@ -91,8 +117,8 @@ public class EventUI implements IForms{
 			JOptionPane.showMessageDialog(null, exceptions);
 		}
 		else{
-			Event event = command.getResult().getEvent();
-			JOptionPane.showMessageDialog(null, event.getName()+'\n'+event.getData().toString());
+			IEvent event = command.getResult().getEvent();
+			JOptionPane.showMessageDialog(null, event.getDetails());
 		}
 	}
 
@@ -105,8 +131,8 @@ public class EventUI implements IForms{
 		String nomes = "";
 		String exceptionsText = "";
 
-		for(Event event : command.getResult().getEvents()){
-			nomes += event.getName() + " - " + event.getData() +'\n';
+		for(IEvent event : command.getResult().getEvents()){
+			nomes += event.getDetails() + "\n\n";
 		}
 
 		for(String exception : command.getResult().getErrors()){

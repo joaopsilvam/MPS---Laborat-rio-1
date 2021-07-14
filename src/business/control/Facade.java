@@ -4,7 +4,7 @@ import business.configuration.ApplicationConfiguration;
 import business.control.factories.ReportManagerFactory;
 import business.control.reportmanagers.ReportManagerBase;
 import business.model.Document;
-import business.model.Event;
+import business.model.IEvent;
 import business.model.User;
 import business.model.responses.*;
 import util.EventException;
@@ -59,7 +59,7 @@ public class Facade {
         errors.addAll(eventErrors);
 
         if(userErrors.isEmpty() && eventErrors.isEmpty()){
-            Event event = eventResponse.getEvent();
+            IEvent event = eventResponse.getEvent();
             User user = userResponse.getUser();
 
             try{
@@ -75,7 +75,7 @@ public class Facade {
         return errors;
     }
 
-    private void avaliableUserInEvent(String userLogin, Event event) throws EventException {
+    private void avaliableUserInEvent(String userLogin, IEvent event) throws EventException {
         if(event.getUsers().containsKey(userLogin)){
             throw new EventException("Usuário já está cadastrado neste evento");
         }
@@ -111,7 +111,7 @@ public class Facade {
 
     public List<String> deleteDocument(String name) { return this.documentControl.delete(name); }
 
-    public List<String> addEvent(Event event) {
+    public List<String> addEvent(IEvent event) {
         return this.eventControl.add(event);
     }
 
@@ -129,7 +129,7 @@ public class Facade {
 
     public UserListResponse listAllUsersOnEvent(String nameEvent) {
         EventResponse response = this.eventControl.read(nameEvent);
-        Event event = response.getEvent();
+        IEvent event = response.getEvent();
         List<String> errors = response.getErrors();
         List<User> users = new ArrayList<>();
 

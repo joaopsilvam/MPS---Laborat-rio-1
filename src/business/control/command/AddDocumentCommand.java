@@ -2,7 +2,6 @@ package business.control.command;
 
 import business.control.Facade;
 import business.model.Document;
-import business.model.Event;
 
 import java.util.List;
 

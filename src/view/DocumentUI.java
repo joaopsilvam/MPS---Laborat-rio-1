@@ -3,11 +3,8 @@ package view;
 import business.control.Facade;
 import business.control.command.*;
 import business.model.Document;
-import business.model.Event;
 import business.model.responses.DocumentListReponse;
 import business.model.responses.DocumentResponse;
-import business.model.responses.EventListResponse;
-import business.model.responses.EventResponse;
 
 import javax.swing.*;
 import java.util.Date;

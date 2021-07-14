@@ -1,20 +1,20 @@
 package infra;
 
-import business.model.Event;
+import business.model.IEvent;
 import util.InfraException;
 
 import java.io.*;
 import java.util.HashMap;
 
 public class EventPersistence {
-    public static HashMap<String, Event> loadEvents(String nomeArquivo) throws InfraException {
+    public static HashMap<String, IEvent> loadEvents(String nomeArquivo) throws InfraException {
 
-        HashMap<String, Event> events = new HashMap<String, Event>();
+        HashMap<String, IEvent> events = new HashMap<>();
         try {
             File arquivo = new File(nomeArquivo);
             if (arquivo.exists()) {
                 ObjectInputStream objInput = new ObjectInputStream(new FileInputStream(arquivo));
-                events = (HashMap<String, Event>)objInput.readObject();
+                events = (HashMap<String, IEvent>)objInput.readObject();
                 objInput.close();
             }
         } catch(IOException erro1) {
@@ -26,7 +26,7 @@ public class EventPersistence {
         return(events);
     }
 
-    public static void saveEvents(HashMap<String, Event> events, String nomeArquivo) {
+    public static void saveEvents(HashMap<String, IEvent> events, String nomeArquivo) {
         File arquivo = new File(nomeArquivo);
         try {
 
