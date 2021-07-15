@@ -1,7 +1,7 @@
 package business.control.reportmanagers;
 
 import business.control.UserStatisticControl;
-import business.model.User;
+import business.model.IUser;
 import business.model.UserStatistic;
 import java.util.Date;
 import java.util.List;
@@ -22,12 +22,12 @@ public class ReportManagerHtml extends ReportManagerBase{
         builder.append("<ul>");
 
         for(UserStatistic statistic : statistics){
-            User user = statistic.getUser();
+            IUser IUser = statistic.getUser();
             Date loginDate = statistic.getLoginDate();
 
             builder.append("<li>");
             builder.append("Usuário: ");
-            builder.append(user.getLogin());
+            builder.append(IUser.getLogin());
             builder.append(" - ");
             builder.append("Data: ");
             builder.append(loginDate);

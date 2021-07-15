@@ -2,7 +2,9 @@ package view;
 
 import business.control.UserControl;
 import business.model.responses.UserListResponse;
-import business.model.User;
+import business.model.IUser;
+import business.model.users.StudentUser;
+import jdk.nashorn.internal.scripts.JO;
 
 import javax.swing.*;
 import java.util.List;
@@ -42,9 +44,29 @@ public class UserForm {
 	}
 
 	public void addOperation(){
+		String option = JOptionPane.showInputDialog("Selecione uma opção:\n[a]Aluno\n[b]Funcionário");
 		String login = JOptionPane.showInputDialog("Informe o login do usuário:");
 		String password = JOptionPane.showInputDialog("Informe a senha do usuário:");
-		User user = new User(login, password);
+		String name = JOptionPane.showInputDialog("Informe o nome do usuário:");
+		int age = Integer.parseInt(JOptionPane.showInputDialog("Informe a idade do usuário:"));
+
+		IUser user = null;
+
+		switch (option){
+			case "a":
+				String course = JOptionPane.showInputDialog("Informe o curso do usuário:");
+				user = new StudentUser(login, password, name, age, course);
+				break;
+
+			case "b":
+				String office = JOptionPane.showInputDialog("Informe o trabalho do usuário:");
+				user = new StudentUser(login, password, name, age, office);
+				break;
+
+			default:
+				JOptionPane.showMessageDialog(null, "Opção inválida!");
+				return;
+		}
 
 		List<String> exceptions = controller.add(user);
 		String exceptionsText = "";
@@ -74,8 +96,8 @@ public class UserForm {
 		String logins = "";
 		String exceptionsText = "";
 
-		for(User user : response.getUsers()){
-			logins += user.getLogin() + '\n';
+		for(IUser IUser : response.getUsers()){
+			logins += IUser.getLogin() + '\n';
 		}
 
 		for(String exception : response.getErrors()){

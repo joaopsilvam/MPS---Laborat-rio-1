@@ -5,7 +5,7 @@ import business.control.command.*;
 import business.model.IEvent;
 import business.model.events.OnlineEvent;
 import business.model.events.PresentialEvent;
-import business.model.User;
+import business.model.IUser;
 import business.model.responses.EventListResponse;
 import business.model.responses.EventResponse;
 import business.model.responses.UserListResponse;
@@ -178,7 +178,7 @@ public class EventUI implements IForms{
 			return;
 		}
 
-		for (User u : response.getUsers()) {
+		for (IUser u : response.getUsers()) {
 			users += u.getLogin()+'\n';
 		}
 		JOptionPane.showMessageDialog(null, users);

@@ -3,8 +3,10 @@ package view;
 import business.control.Facade;
 import business.control.command.*;
 import business.model.responses.UserListResponse;
-import business.model.User;
+import business.model.IUser;
 import business.model.responses.UserResponse;
+import business.model.users.EmployeeUser;
+import business.model.users.StudentUser;
 
 import javax.swing.*;
 import java.util.List;
@@ -58,9 +60,29 @@ public class UserUI implements IForms{
 	}
 
 	public void addOperation(){
+		String option = JOptionPane.showInputDialog("Selecione uma opção:\n[a]Aluno\n[b]Funcionário");
 		String login = JOptionPane.showInputDialog("Informe o login do usuário:");
 		String password = JOptionPane.showInputDialog("Informe a senha do usuário:");
-		User user = new User(login, password);
+		String name = JOptionPane.showInputDialog("Informe o nome do usuário:");
+		int age = Integer.parseInt(JOptionPane.showInputDialog("Informe a idade do usuário:"));
+
+		IUser user = null;
+
+		switch (option){
+			case "a":
+				String course = JOptionPane.showInputDialog("Informe o curso do usuário:");
+				user = new StudentUser(login, password, name, age, course);
+				break;
+
+			case "b":
+				String office = JOptionPane.showInputDialog("Informe o carga do usuário:");
+				user = new EmployeeUser(login, password, name, age, office);
+				break;
+
+			default:
+				JOptionPane.showMessageDialog(null, "Opção inválida!");
+				return;
+		}
 
 		CommandWithResult<List<String>> command = new AddUserCommand(this.facade, user);
 		executor.performOperation(command);
@@ -91,8 +113,8 @@ public class UserUI implements IForms{
 			JOptionPane.showMessageDialog(null, exceptions);
 		}
 		else{
-			User user = command.getResult().getUser();
-			JOptionPane.showMessageDialog(null, user.getLogin()+'\n'+user.getPassword());
+			IUser user = command.getResult().getUser();
+			JOptionPane.showMessageDialog(null, user.getDetails());
 		}
 	}
 
@@ -104,8 +126,8 @@ public class UserUI implements IForms{
 		String logins = "";
 		String exceptionsText = "";
 
-		for(User user : command.getResult().getUsers()){
-			logins += user.getLogin() + '\n';
+		for(IUser IUser : command.getResult().getUsers()){
+			logins += IUser.getDetails() + '\n';
 		}
 
 		for(String exception : command.getResult().getErrors()){

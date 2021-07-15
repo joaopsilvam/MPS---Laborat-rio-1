@@ -1,7 +1,7 @@
 package business.model.events;
 
 import business.model.IEvent;
-import business.model.User;
+import business.model.IUser;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -25,12 +25,12 @@ public class PresentialEvent extends EventBase{
         this.location = "";
     }
 
-    public PresentialEvent(String name, String description, Date date, HashMap<String, User> users){
+    public PresentialEvent(String name, String description, Date date, HashMap<String, IUser> users){
         super(name, description, date, users);
         this.location = "";
     }
 
-    public PresentialEvent(String name, String description, Date date, HashMap<String, User> users, String location){
+    public PresentialEvent(String name, String description, Date date, HashMap<String, IUser> users, String location){
         super(name, description, date, users);
         this.location = location;
     }

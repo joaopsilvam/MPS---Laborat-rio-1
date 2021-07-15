@@ -1,7 +1,7 @@
 package business.model.events;
 
 import business.model.IEvent;
-import business.model.User;
+import business.model.IUser;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -11,7 +11,7 @@ public abstract class EventBase implements IEvent, Serializable{
     private String name;
     private String description;
     private Date date;
-    private HashMap<String, User> users;
+    private HashMap<String, IUser> users;
 
     public EventBase(){
         this("", "", new Date());
@@ -21,7 +21,7 @@ public abstract class EventBase implements IEvent, Serializable{
         name = event.getName();
         description = event.getDescription();
         date = event.getDate();
-        users = (HashMap<String, User>) event.getUsers().clone();
+        users = (HashMap<String, IUser>) event.getUsers().clone();
     }
 
     public EventBase(String name, String description, Date date){
@@ -31,18 +31,18 @@ public abstract class EventBase implements IEvent, Serializable{
         this.users = new HashMap<>();
     }
 
-    public EventBase(String name, String description, Date data, HashMap<String, User> users){
+    public EventBase(String name, String description, Date data, HashMap<String, IUser> users){
         this.name = name;
         this.description = description;
         this.date = data;
         this.users = users;
     }
 
-    public HashMap<String,User> getUsers() {
+    public HashMap<String, IUser> getUsers() {
         return users;
     }
 
-    public void setUsers(HashMap<String,User> users) {
+    public void setUsers(HashMap<String, IUser> users) {
         this.users = users;
     }
 

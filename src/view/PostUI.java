@@ -3,11 +3,8 @@ package view;
 import business.control.Facade;
 import business.control.command.*;
 import business.model.Post;
-import business.model.User;
 import business.model.responses.PostListResponse;
 import business.model.responses.PostResponse;
-import business.model.responses.UserListResponse;
-import business.model.responses.UserResponse;
 
 import javax.swing.*;
 import java.util.Date;

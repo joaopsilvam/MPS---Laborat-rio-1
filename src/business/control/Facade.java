@@ -6,10 +6,9 @@ import business.control.reportmanagers.ReportManagerBase;
 import business.model.IEvent;
 import business.model.IDocument;
 import business.model.Post;
-import business.model.User;
+import business.model.IUser;
 import business.model.responses.*;
 import util.EventException;
-import util.PostException;
 import util.InfraException;
 
 import java.util.ArrayList;
@@ -65,12 +64,12 @@ public class Facade {
 
         if(userErrors.isEmpty() && eventErrors.isEmpty()){
             IEvent event = eventResponse.getEvent();
-            User user = userResponse.getUser();
+            IUser IUser = userResponse.getUser();
 
             try{
                 avaliableUserInEvent(userLogin, event);
-                HashMap<String, User> users = event.getUsers();
-                users.put(userLogin, user);
+                HashMap<String, IUser> users = event.getUsers();
+                users.put(userLogin, IUser);
             }
             catch (EventException e){
                 errors.add(e.getMessage());
@@ -86,8 +85,8 @@ public class Facade {
         }
     }
 
-    public List<String> addUser(User user) {
-        return this.userControl.add(user);
+    public List<String> addUser(IUser IUser) {
+        return this.userControl.add(IUser);
     }
 
     public UserListResponse readAllUsers() {
@@ -152,22 +151,22 @@ public class Facade {
         EventResponse response = this.eventControl.read(nameEvent);
         IEvent event = response.getEvent();
         List<String> errors = response.getErrors();
-        List<User> users = new ArrayList<>();
+        List<IUser> IUsers = new ArrayList<>();
 
         if(!errors.isEmpty()){
             return new UserListResponse(new ArrayList<>(), errors);
         }
 
-        for(User user : event.getUsers().values()){
-            users.add(user);
+        for(IUser IUser : event.getUsers().values()){
+            IUsers.add(IUser);
         }
 
-        return new UserListResponse(users, errors);
+        return new UserListResponse(IUsers, errors);
     }
 
-    public void login(User user) throws InfraException{
-        this.userControl.login(user);
-        this.userStatisticControl.registerLoginStatistic(user);
+    public void login(IUser IUser) throws InfraException{
+        this.userControl.login(IUser);
+        this.userStatisticControl.registerLoginStatistic(IUser);
     }
 
     public void saveReport(String reportType) throws InfraException{

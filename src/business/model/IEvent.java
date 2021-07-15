@@ -13,8 +13,8 @@ public interface IEvent {
     String getDescription();
     void setDescription(String description);
 
-    HashMap<String, User> getUsers();
-    void setUsers(HashMap<String, User> users);
+    HashMap<String, IUser> getUsers();
+    void setUsers(HashMap<String, IUser> users);
 
     String getDetails();
     IEvent copy();

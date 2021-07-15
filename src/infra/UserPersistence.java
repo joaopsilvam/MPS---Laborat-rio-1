@@ -3,19 +3,19 @@ package infra;
 import java.io.*;
 import java.util.HashMap;
 
-import business.model.User;
+import business.model.IUser;
 import util.InfraException;
 
 public class UserPersistence{
 
-	public static HashMap<String, User> loadUsers(String nomeArquivo) throws InfraException {
+	public static HashMap<String, IUser> loadUsers(String nomeArquivo) throws InfraException {
 
-		HashMap<String, User> users = new HashMap<String, User>();
+		HashMap<String, IUser> users = new HashMap<String, IUser>();
 		try {
 			File arquivo = new File(nomeArquivo);
 			if (arquivo.exists()) {
 				ObjectInputStream objInput = new ObjectInputStream(new FileInputStream(arquivo));
-				users = (HashMap<String, User>)objInput.readObject();
+				users = (HashMap<String, IUser>)objInput.readObject();
 				objInput.close();
 			}
 		} catch(IOException erro1) {
@@ -27,7 +27,7 @@ public class UserPersistence{
 		return(users);
 	}
 
-	public static void saveUsers(HashMap<String, User> users, String nomeArquivo) {
+	public static void saveUsers(HashMap<String, IUser> users, String nomeArquivo) {
 		File arquivo = new File(nomeArquivo);
 		try {
 

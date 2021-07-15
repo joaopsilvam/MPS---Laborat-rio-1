@@ -2,7 +2,6 @@ package business.control.command;
 
 import business.control.Facade;
 import business.model.Post;
-import business.model.User;
 
 import java.util.List;
 

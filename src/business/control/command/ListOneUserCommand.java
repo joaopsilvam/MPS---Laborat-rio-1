@@ -1,10 +1,7 @@
 package business.control.command;
 
 import business.control.Facade;
-import business.model.User;
 import business.model.responses.UserResponse;
-
-import java.util.List;
 
 public class ListOneUserCommand extends CommandWithResult<UserResponse>{
     private final Facade facade;

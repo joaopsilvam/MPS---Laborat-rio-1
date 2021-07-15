@@ -1,6 +1,6 @@
 package business.control.validators;
 
-import business.model.User;
+import business.model.IUser;
 
 import java.util.List;
 
@@ -14,9 +14,9 @@ public abstract class UserValidatorBase implements  IUserValidator{
     }
 
     @Override
-    public void validate(User user, List<String> errors) {
+    public void validate(IUser IUser, List<String> errors) {
         if(nextValidator != null){
-            nextValidator.validate(user, errors);
+            nextValidator.validate(IUser, errors);
         }
     }
 }

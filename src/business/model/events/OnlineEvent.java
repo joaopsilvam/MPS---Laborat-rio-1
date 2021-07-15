@@ -1,7 +1,7 @@
 package business.model.events;
 
 import business.model.IEvent;
-import business.model.User;
+import business.model.IUser;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -25,12 +25,12 @@ public class OnlineEvent extends EventBase{
         this.link = "";
     }
 
-    public OnlineEvent(String name, String description, Date date, HashMap<String, User> users){
+    public OnlineEvent(String name, String description, Date date, HashMap<String, IUser> users){
         super(name, description, date, users);
         this.link = "";
     }
 
-    public OnlineEvent(String name, String description, Date date, HashMap<String, User> users, String link){
+    public OnlineEvent(String name, String description, Date date, HashMap<String, IUser> users, String link){
         super(name, description, date, users);
         this.link = link;
     }
