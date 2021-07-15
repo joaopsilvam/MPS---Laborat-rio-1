@@ -1,12 +1,12 @@
 package business.control.command;
 
 import business.control.Facade;
-import business.model.responses.PostListResponse;
+import business.model.responses.NewsListResponse;
 
-public class ListAllPostCommand extends CommandWithResult<PostListResponse>{
+public class ListAllNewsCommand extends CommandWithResult<NewsListResponse>{
     private final Facade facade;
 
-    public ListAllPostCommand(Facade facade){
+    public ListAllNewsCommand(Facade facade){
         this.facade = facade;
     }
 

@@ -5,7 +5,7 @@ import business.control.factories.ReportManagerFactory;
 import business.control.reportmanagers.ReportManagerBase;
 import business.model.IEvent;
 import business.model.IDocument;
-import business.model.Post;
+import business.model.INews;
 import business.model.IUser;
 import business.model.responses.*;
 import util.EventException;
@@ -131,15 +131,15 @@ public class Facade {
         return this.eventControl.delete(name);
     }
 
-    public List<String> addPost(Post post) {
-        return this.postControl.add(post);
+    public List<String> addPost(INews INews) {
+        return this.postControl.add(INews);
     }
 
-    public PostResponse readPost(String titulo) {
+    public NewsResponse readPost(String titulo) {
         return this.postControl.read(titulo);
     }
 
-    public PostListResponse readAllPosts() {
+    public NewsListResponse readAllPosts() {
         return this.postControl.readAll();
     }
 

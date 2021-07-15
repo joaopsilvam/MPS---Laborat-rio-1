@@ -37,7 +37,7 @@ public class ManagerSystemUI implements IForms{
                 sectionReports();
                 break;
             case "e":
-                sectionPosts();
+                sectionNews();
                 break;
             case "x":
                 return false;
@@ -54,8 +54,8 @@ public class ManagerSystemUI implements IForms{
     private void sectionEvents() {
         new EventUI(this.facade, this.executor).menu();
     }
-    private void sectionPosts() {
-        new PostUI(this.facade, this.executor).menu();
+    private void sectionNews() {
+        new NewsUI(this.facade, this.executor).menu();
     }
     private void sectionDocuments() {
         new DocumentUI(this.facade, this.executor).menu();
