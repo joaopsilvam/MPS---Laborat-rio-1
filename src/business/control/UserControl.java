@@ -3,7 +3,7 @@ package business.control;
 import business.control.factories.UserValidatorFactory;
 import business.control.validators.IUserValidator;
 import business.model.responses.UserListResponse;
-import business.model.User;
+import business.model.IUser;
 import business.model.responses.UserResponse;
 import util.InfraException;
 import util.UserException;
@@ -16,7 +16,7 @@ import java.util.List;
 
 public class UserControl {
 
-	private HashMap<String, User> users;
+	private HashMap<String, IUser> users;
 
 	public UserControl() throws InfraException{
 		loadData();
@@ -30,30 +30,30 @@ public class UserControl {
 		UserPersistence.saveUsers(this.users, Paths.USERS_PATH);
 	}
 	
-	public List<String> add(User user) {
+	public List<String> add(IUser IUser) {
 		List<String> exceptions = new ArrayList<>();
 		IUserValidator validator = UserValidatorFactory.create();
 
 		try{
-			avaliableUser(user.getLogin());
+			avaliableUser(IUser.getLogin());
 		}
 		catch (UserException e){
 			exceptions.add(e.getMessage());
 		}
 
-		validator.validate(user, exceptions);
+		validator.validate(IUser, exceptions);
 
 		if(exceptions.isEmpty())
-			users.put(user.getLogin(), user);
+			users.put(IUser.getLogin(), IUser);
 
 		return exceptions;
 	}
 
 	public UserListResponse readAll() {
-		List<User> response = new ArrayList<>();
+		List<IUser> response = new ArrayList<>();
 
-		for(User user : users.values()){
-			response.add(user);
+		for(IUser IUser : users.values()){
+			response.add(IUser);
 		}
 
 		return new UserListResponse(response, new ArrayList<>());
@@ -61,16 +61,16 @@ public class UserControl {
 
 	public UserResponse read(String login) {
 		List<String> exceptions = new ArrayList<>();
-		User user = null;
+		IUser IUser = null;
 
 		try{
 			hasUser(login);
-			user = users.get(login);
+			IUser = users.get(login);
 		}catch (UserException e){
 			exceptions.add(e.getMessage());
 		}
 
-		return new UserResponse(user, exceptions);
+		return new UserResponse(IUser, exceptions);
 	}
 
 	public List<String> delete(String login) {
@@ -87,8 +87,8 @@ public class UserControl {
 		return exceptions;
 	}
 
-	public String login(User user) {
-		return "O usuário "+user.getLogin()+" fez login!";
+	public String login(IUser IUser) {
+		return "O usuário "+ IUser.getLogin()+" fez login!";
 	}
 
 	private void avaliableUser(String login) throws UserException{

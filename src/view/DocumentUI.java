@@ -2,12 +2,11 @@ package view;
 
 import business.control.Facade;
 import business.control.command.*;
-import business.model.Document;
-import business.model.Event;
+import business.model.*;
+import business.model.documents.EditalDocument;
+import business.model.documents.ResourceFormDocument;
 import business.model.responses.DocumentListReponse;
 import business.model.responses.DocumentResponse;
-import business.model.responses.EventListResponse;
-import business.model.responses.EventResponse;
 
 import javax.swing.*;
 import java.util.Date;
@@ -57,8 +56,22 @@ public class DocumentUI implements IForms{
     public void addOperation(){
         String name = JOptionPane.showInputDialog("Informe o nome do documento");
         String content = JOptionPane.showInputDialog("Informe o conteúdo do documento");
-        Document document = new Document(content, name, new Date());
+        IDocument document = null;
 
+        while(document == null) {
+            String documentType = JOptionPane.showInputDialog("Qual tipo de documento você deseja publicar?" +
+                    "\n[a] Documento de Edital\n[b] Formulário de Recurso");
+            switch (documentType) {
+                case "a":
+                    document = new EditalDocument(content, name, new Date());
+                    break;
+                case "b":
+                    document = new ResourceFormDocument(content, name, new Date());
+                    break;
+                default:
+                    JOptionPane.showMessageDialog(null, "O tipo de documento informado não existe no sistema.");
+            }
+        }
         CommandWithResult<List<String>> command = new AddDocumentCommand(this.facade, document);
         executor.performOperation(command);
         List<String> exceptions = command.getResult();
@@ -88,8 +101,8 @@ public class DocumentUI implements IForms{
             JOptionPane.showMessageDialog(null, exceptions);
         }
         else{
-            Document document = command.getResult().getDocument();
-            JOptionPane.showMessageDialog(null, '<' + document.getName()+">\n"+document.getData() + '\n');
+            IDocument document = command.getResult().getDocument();
+            JOptionPane.showMessageDialog(null, '<' + document.getDetails() + '\n');
         }
     }
 
@@ -101,8 +114,8 @@ public class DocumentUI implements IForms{
         String nomes = "";
         String exceptionsText = "";
 
-        for(Document document : command.getResult().getDocuments()){
-            nomes += document.getName() + " - " + document.getData() +'\n';
+        for(IDocument document : command.getResult().getDocuments()){
+            nomes += document.getDetails()+"\n";
         }
 
         for(String exception : command.getResult().getErrors()){
@@ -117,8 +130,7 @@ public class DocumentUI implements IForms{
     }
 
     public void delOperation(){
-        String name = JOptionPane.showInputDialog("Informe o nome do documento");
-
+        String name = JOptionPane.showInputDialog("Informe o nome do documento: ");
         CommandWithResult<List<String>> command = new DelDocumentCommand(this.facade, name);
         executor.performOperation(command);
         List<String> exceptions = command.getResult();

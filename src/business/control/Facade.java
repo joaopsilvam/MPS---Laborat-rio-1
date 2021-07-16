@@ -3,9 +3,10 @@ package business.control;
 import business.configuration.ApplicationConfiguration;
 import business.control.factories.ReportManagerFactory;
 import business.control.reportmanagers.ReportManagerBase;
-import business.model.Document;
-import business.model.Event;
-import business.model.User;
+import business.model.IEvent;
+import business.model.IDocument;
+import business.model.INews;
+import business.model.IUser;
 import business.model.responses.*;
 import util.EventException;
 import util.InfraException;
@@ -29,6 +30,7 @@ public class Facade {
     private UserControl userControl;
     private DocumentControl documentControl;
     private EventControl eventControl;
+    private PostControl postControl;
     private UserStatisticControl userStatisticControl;
 
     private Facade() throws InfraException{
@@ -37,6 +39,7 @@ public class Facade {
         this.userControl = new UserControl();
         this.documentControl = new DocumentControl();
         this.eventControl = new EventControl();
+        this.postControl = new PostControl();
         this.userStatisticControl = new UserStatisticControl();
     }
 
@@ -44,6 +47,7 @@ public class Facade {
         this.userControl.saveData();
         this.documentControl.saveData();
         this.eventControl.saveData();
+        this.postControl.saveData();
         this.userStatisticControl.saveData();
     }
 
@@ -59,13 +63,13 @@ public class Facade {
         errors.addAll(eventErrors);
 
         if(userErrors.isEmpty() && eventErrors.isEmpty()){
-            Event event = eventResponse.getEvent();
-            User user = userResponse.getUser();
+            IEvent event = eventResponse.getEvent();
+            IUser IUser = userResponse.getUser();
 
             try{
                 avaliableUserInEvent(userLogin, event);
-                HashMap<String, User> users = event.getUsers();
-                users.put(userLogin, user);
+                HashMap<String, IUser> users = event.getUsers();
+                users.put(userLogin, IUser);
             }
             catch (EventException e){
                 errors.add(e.getMessage());
@@ -75,14 +79,14 @@ public class Facade {
         return errors;
     }
 
-    private void avaliableUserInEvent(String userLogin, Event event) throws EventException {
+    private void avaliableUserInEvent(String userLogin, IEvent event) throws EventException {
         if(event.getUsers().containsKey(userLogin)){
             throw new EventException("Usuário já está cadastrado neste evento");
         }
     }
 
-    public List<String> addUser(User user) {
-        return this.userControl.add(user);
+    public List<String> addUser(IUser IUser) {
+        return this.userControl.add(IUser);
     }
 
     public UserListResponse readAllUsers() {
@@ -97,7 +101,7 @@ public class Facade {
         return this.userControl.delete(login);
     }
 
-    public List<String> addDocument(Document data) {
+    public List<String> addDocument(IDocument data) {
         return this.documentControl.add(data);
     }
 
@@ -111,7 +115,7 @@ public class Facade {
 
     public List<String> deleteDocument(String name) { return this.documentControl.delete(name); }
 
-    public List<String> addEvent(Event event) {
+    public List<String> addEvent(IEvent event) {
         return this.eventControl.add(event);
     }
 
@@ -127,26 +131,42 @@ public class Facade {
         return this.eventControl.delete(name);
     }
 
+    public List<String> addPost(INews INews) {
+        return this.postControl.add(INews);
+    }
+
+    public NewsResponse readPost(String titulo) {
+        return this.postControl.read(titulo);
+    }
+
+    public NewsListResponse readAllPosts() {
+        return this.postControl.readAll();
+    }
+
+    public List<String> deletePost(String titulo) {
+        return this.postControl.delete(titulo);
+    }
+
     public UserListResponse listAllUsersOnEvent(String nameEvent) {
         EventResponse response = this.eventControl.read(nameEvent);
-        Event event = response.getEvent();
+        IEvent event = response.getEvent();
         List<String> errors = response.getErrors();
-        List<User> users = new ArrayList<>();
+        List<IUser> IUsers = new ArrayList<>();
 
         if(!errors.isEmpty()){
             return new UserListResponse(new ArrayList<>(), errors);
         }
 
-        for(User user : event.getUsers().values()){
-            users.add(user);
+        for(IUser IUser : event.getUsers().values()){
+            IUsers.add(IUser);
         }
 
-        return new UserListResponse(users, errors);
+        return new UserListResponse(IUsers, errors);
     }
 
-    public void login(User user) throws InfraException{
-        this.userControl.login(user);
-        this.userStatisticControl.registerLoginStatistic(user);
+    public void login(IUser IUser) throws InfraException{
+        this.userControl.login(IUser);
+        this.userStatisticControl.registerLoginStatistic(IUser);
     }
 
     public void saveReport(String reportType) throws InfraException{

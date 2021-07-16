@@ -1,20 +1,20 @@
 package business.model.responses;
 
-import business.model.Event;
+import business.model.IEvent;
 
 import java.util.List;
 
 public class EventListResponse {
 
-    private List<Event> events;
+    private List<IEvent> events;
     private List<String> errors;
 
-    public EventListResponse(List<Event> events, List<String> errors){
+    public EventListResponse(List<IEvent> events, List<String> errors){
         this.events = events;
         this.errors = errors;
     }
 
-    public List<Event> getEvents() {
+    public List<IEvent> getEvents() {
         return events;
     }
 

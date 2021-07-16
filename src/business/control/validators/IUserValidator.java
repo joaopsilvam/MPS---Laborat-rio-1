@@ -1,12 +1,12 @@
 package business.control.validators;
 
-import business.model.User;
+import business.model.IUser;
 
 import java.util.List;
 
 public interface IUserValidator
 {
-	void validate(User user, List<String> errors);
+	void validate(IUser IUser, List<String> errors);
 
 	void setNextValidator(IUserValidator nextValidator);
 }

@@ -1,21 +1,21 @@
 package business.model.responses;
 
-import business.model.User;
+import business.model.IUser;
 
 import java.util.List;
 
 public class UserResponse implements Response{
 
-    private User user;
+    private IUser IUser;
     private List<String> errors;
 
-    public UserResponse(User user, List<String> errors){
-        this.user = user;
+    public UserResponse(IUser IUser, List<String> errors){
+        this.IUser = IUser;
         this.errors = errors;
     }
 
-    public User getUser(){
-        return user;
+    public IUser getUser(){
+        return IUser;
     }
 
     public List<String> getErrors(){

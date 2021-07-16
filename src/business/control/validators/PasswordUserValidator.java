@@ -1,6 +1,6 @@
 package business.control.validators;
 
-import business.model.User;
+import business.model.IUser;
 
 import java.util.List;
 import java.util.regex.Pattern;
@@ -15,9 +15,9 @@ public class PasswordUserValidator extends UserValidatorBase{
 		containsWordCharPattern = Pattern.compile(".*[a-zA-Z].*");
 	}
 
-	public void validate(User user, List<String> errors)
+	public void validate(IUser IUser, List<String> errors)
 	{
-		String value = user.getPassword();
+		String value = IUser.getPassword();
 		boolean containsWordChar = containsWordCharPattern.matcher(value).matches();
 		boolean containsTwoNumbers = containsTwoNumbersPattern.matcher(value).matches();
 		boolean formatValid = containsWordChar && containsTwoNumbers;
@@ -27,7 +27,7 @@ public class PasswordUserValidator extends UserValidatorBase{
 			errors.add(createErrorMessage(sizeInvalid, !formatValid));
 		}
 
-		super.validate(user, errors);
+		super.validate(IUser, errors);
 	}
 
 	private String createErrorMessage(boolean sizeInvalid, boolean formatInvalid){

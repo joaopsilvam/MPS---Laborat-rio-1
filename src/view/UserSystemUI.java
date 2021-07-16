@@ -1,10 +1,13 @@
 package view;
 
 import business.control.Facade;
-import business.model.User;
+import business.model.IUser;
+import business.model.responses.UserResponse;
+import business.model.users.StudentUser;
 import util.InfraException;
 
 import javax.swing.*;
+import java.util.List;
 
 public class UserSystemUI implements IForms{
 
@@ -34,7 +37,26 @@ public class UserSystemUI implements IForms{
     }
 
     private void login(String login, String pass) throws InfraException {
-        User user = new User(login, pass);
+
+        UserResponse userResponse = facade.readUser(login);
+        IUser user = userResponse.getUser();
+        List<String> errors = userResponse.getErrors();
+
+        if(errors.size() > 0){
+            String errorText = "";
+
+            for(String error : errors){
+                errorText += error + '\n';
+            }
+
+            JOptionPane.showMessageDialog(null, errorText);
+            return;
+        }
+
+        if(!user.getPassword().equals(pass)){
+            JOptionPane.showMessageDialog(null, "Senha inválida!");
+            return;
+        }
 
         facade.login(user);
     }

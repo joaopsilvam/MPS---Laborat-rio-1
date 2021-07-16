@@ -1,6 +1,6 @@
 package business.control;
 
-import business.model.User;
+import business.model.IUser;
 import business.model.UserStatistic;
 import util.InfraException;
 import infra.Paths;
@@ -25,11 +25,11 @@ public class UserStatisticControl {
         UserStatisticPersistence.saveStatistics(statistics, Paths.REPORT_PATH);
     }
 
-    public void registerLoginStatistic(User user){
+    public void registerLoginStatistic(IUser IUser){
         UserStatistic statistic = new UserStatistic();
 
         statistic.setLoginDate(new Date());
-        statistic.setUser(user);
+        statistic.setUser(IUser);
 
         statistics.add(statistic);
     }

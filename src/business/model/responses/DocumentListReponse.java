@@ -1,20 +1,20 @@
 package business.model.responses;
 
-import business.model.Document;
+import business.model.IDocument;
 
 import java.util.List;
 
 public class DocumentListReponse {
 
-    private List<Document> documents;
+    private List<IDocument> documents;
     private List<String> errors;
 
-    public DocumentListReponse(List<Document> documents, List<String> errors){
+    public DocumentListReponse(List<IDocument> documents, List<String> errors){
         this.documents = documents;
         this.errors = errors;
     }
 
-    public List<Document> getDocuments() {
+    public List<IDocument> getDocuments() {
         return documents;
     }
 

@@ -1,7 +1,7 @@
 package business.control.reportmanagers;
 
 import business.control.UserStatisticControl;
-import business.model.User;
+import business.model.IUser;
 import business.model.UserStatistic;
 
 import java.util.Date;
@@ -21,11 +21,11 @@ public class ReportManagerPdf extends ReportManagerBase{
         StringBuilder builder = new StringBuilder();
 
         for(UserStatistic statistic : statistics){
-            User user = statistic.getUser();
+            IUser IUser = statistic.getUser();
             Date loginDate = statistic.getLoginDate();
 
             builder.append(userLabel);
-            builder.append(user.getLogin());
+            builder.append(IUser.getLogin());
             builder.append(" - ");
             builder.append(dateLabel);
             builder.append(loginDate);

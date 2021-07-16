@@ -1,6 +1,6 @@
 package business.control;
 
-import business.model.Event;
+import business.model.IEvent;
 import business.model.responses.EventListResponse;
 import business.model.responses.EventResponse;
 import util.EventException;
@@ -15,19 +15,19 @@ public class EventControl {
 
     public class Memento{
 
-        private final HashMap<String, Event> events;
+        private final HashMap<String, IEvent> events;
 
-        public Memento(HashMap<String, Event> events){
+        public Memento(HashMap<String, IEvent> events){
             this.events = new HashMap<>();
 
             for(String key : events.keySet()){
-                Event event = events.get(key);
-                this.events.put(key, event.clonar());
+                IEvent event = events.get(key);
+                this.events.put(key, event.copy());
             }
         }
     }
 
-    private HashMap<String, Event> events;
+    private HashMap<String, IEvent> events;
 
     public EventControl() throws InfraException{
         events = new HashMap<>();
@@ -42,10 +42,10 @@ public class EventControl {
         EventPersistence.saveEvents(events, Paths.EVENTS_PATH);
     }
 
-    public List<String> add(Event event){
+    public List<String> add(IEvent event){
         List<String> errors = new ArrayList<>();
         try{
-            avaliableEvent(event.getName());
+            avaliableIEvent(event.getName());
             events.put(event.getName(), event);
         }catch(EventException e){
             errors.add(e.getMessage());
@@ -55,10 +55,10 @@ public class EventControl {
 
     public EventResponse read(String name){
         List<String> errors = new ArrayList<>();
-        Event event = null;
+        IEvent event = null;
 
         try{
-            hasEvent(name);
+            hasIEvent(name);
             event = events.get(name);
         }catch (EventException e){
             errors.add(e.getMessage());
@@ -69,9 +69,9 @@ public class EventControl {
 
     public EventListResponse readAll(){
         List<String> errors = new ArrayList<>();
-        List<Event> events = new ArrayList<>();
+        List<IEvent> events = new ArrayList<>();
 
-        for(Event event : this.events.values()){
+        for(IEvent event : this.events.values()){
             events.add(event);
         }
 
@@ -82,7 +82,7 @@ public class EventControl {
         List<String> errors = new ArrayList<>();
 
         try {
-            hasEvent(name);
+            hasIEvent(name);
             events.remove(name);
         }catch (EventException e){
             errors.add(name);
@@ -99,13 +99,13 @@ public class EventControl {
         return new EventControl.Memento(events);
     }
 
-    private void avaliableEvent(String name) throws EventException {
+    private void avaliableIEvent(String name) throws EventException {
         if(events.containsKey(name)){
             throw new EventException("Já existe um evento com este nome");
         }
     }
 
-    private void hasEvent(String name) throws EventException {
+    private void hasIEvent(String name) throws EventException {
         if(!events.containsKey(name)){
             throw new EventException("Esse evento não existe");
         }

@@ -6,7 +6,7 @@ import java.util.Date;
 public class UserStatistic implements Serializable {
 
     private Date loginDate;
-    private User user;
+    private IUser IUser;
 
     public Date getLoginDate() {
         return loginDate;
@@ -16,11 +16,11 @@ public class UserStatistic implements Serializable {
         this.loginDate = loginDate;
     }
 
-    public User getUser() {
-        return user;
+    public IUser getUser() {
+        return IUser;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser(IUser IUser) {
+        this.IUser = IUser;
     }
 }
